@@ -27,6 +27,6 @@ To run this application locally, clone the repository and open the `index.html` 
 
 ## Contact
 
-If you have any questions or suggestions, feel free to reach out to Rameshwar Dashrath Bansode at [your.email@example.com](mailto:your.email@example.com).
+If you have any questions or suggestions, feel free to reach out to Rameshwar Dashrath Bansode at [rameshwarban000@gmail.com](mailto:rameshwarban000@gmail.com).
 
 Thank you for using Blogify! Happy Blogging!
