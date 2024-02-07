@@ -1,12 +1,8 @@
 package com.eduonnetblog.entities;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,9 +18,7 @@ public class Description {
 	
 	private Long blogId;
 	
-	@OneToMany(mappedBy = "description", cascade = CascadeType.ALL)
-	private List<Image> images;
-	
+	private Long imageId;
 	
 	public long getId() {
 		return id;
@@ -44,11 +38,11 @@ public class Description {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public List<Image> getImages() {
-		return images;
+	public Long getImageId() {
+		return imageId;
 	}
-	public void setImages(List<Image> images) {
-		this.images = images;
+	public void setImageId(Long imageId) {
+		this.imageId = imageId;
 	}
 	public Long getBlogId() {
 		return blogId;

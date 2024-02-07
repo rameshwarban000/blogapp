@@ -14,6 +14,8 @@ import com.eduonnetblog.entities.BlogOrNewsResObj;
 import com.eduonnetblog.entities.Description;
 import com.eduonnetblog.entities.Image;
 
+import net.sf.json.JSONObject;
+
 @Service
 public class BlogAndNewsServiceImpl implements BlogAndNewsService{
 	
@@ -62,6 +64,36 @@ public class BlogAndNewsServiceImpl implements BlogAndNewsService{
 	public List<Description> getDescriptions(List<Long> descriptonIds) {
 		if(descriptonIds != null && !descriptonIds.isEmpty()) {
 			return blogOrNewsDao.getDescriptionsByIds(descriptonIds);
+		}
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public JSONObject getImageByIdList(List<Description> descriptions) {
+		if(descriptions != null && !descriptions.isEmpty()) {
+			List<Long>  imagesIds = new ArrayList<Long>();
+			for(Description description : descriptions) {
+				if(description.getImageId() != null) {
+					imagesIds.add(description.getImageId());
+				}
+			}
+			List<Image> images = blogOrNewsDao.getImagesByIds(imagesIds);
+			
+			if(images != null && !images.isEmpty()) {
+				JSONObject descriptionWiseImage = new JSONObject();
+				for(Description desc : descriptions) {
+					
+					for(Image img : images) {
+						if(img.getId() == desc.getImageId()) {
+							descriptionWiseImage.put(desc.getId() , img);
+							images.remove(img);
+							break;
+						}
+					}
+				}
+				return descriptionWiseImage;
+			}
 		}
 		return null;
 	}

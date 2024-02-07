@@ -34,6 +34,7 @@
 	/* var aboutmePageURL = '<c:url value="/aboutme"/>'; */
 	var newsList = eval(${newsList});
 	var blogList = eval(${blogList});
+	var descWiseImages = eval(${descWiseImages});
 	
 	$(document).ready(function(){
 		renderNews(newsList);

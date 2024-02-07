@@ -7,6 +7,8 @@ import com.eduonnetblog.entities.BlogOrNewsResObj;
 import com.eduonnetblog.entities.Description;
 import com.eduonnetblog.entities.Image;
 
+import net.sf.json.JSONObject;
+
 public interface BlogAndNewsService {
 
 	public BlogOrNewsResObj saveBlogOrNews(BlogOrNews blogOrNews);
@@ -20,4 +22,6 @@ public interface BlogAndNewsService {
 	public List<Long> saveDescriptions(List<Description> descriptions);
 
 	public List<Description> getDescriptions(List<Long> descriptonIds);
+
+	public JSONObject getImageByIdList(List<Description> descriptions);
 }

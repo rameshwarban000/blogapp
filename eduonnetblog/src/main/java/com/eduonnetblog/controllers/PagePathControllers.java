@@ -75,8 +75,10 @@ public class PagePathControllers {
 				if(entityIds != null && !entityIds.isEmpty()) {
 					List<Description> descriptions = blogAndNewsService.getDescriptions(entityIds);
 					if(descriptions != null && !descriptions.isEmpty()) {
+						JSONObject descriptionWiseImage = blogAndNewsService.getImageByIdList(descriptions);
 						newsListObject = putEntityWiseDescriptionInList(newsList, descriptions);
 						blogListObject = putEntityWiseDescriptionInList(blogList, descriptions);
+						request.setAttribute("descWiseImages", descriptionWiseImage);
 					}
 				}
 				request.setAttribute("newsList", newsListObject);

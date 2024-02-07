@@ -19,6 +19,7 @@ import com.eduonnetblog.entities.BlogOrNewsResObj;
 import com.eduonnetblog.entities.Description;
 import com.eduonnetblog.entities.Image;
 import com.eduonnetblog.services.BlogAndNewsService;
+import com.eduonnetblog.services.ImageCompressionService;
 import com.eduonnetblog.utilities.CommonConstansts;
 import com.eduonnetblog.utilities.MWorkBlogUtility;
 
@@ -29,6 +30,9 @@ public class BlogAndNewsController {
 	
 	@Autowired
 	BlogAndNewsService blogAndNewsService;
+	
+	@Autowired
+	ImageCompressionService compressionService;
 
 	
 	@RequestMapping(value = "/saveblogornews", method = RequestMethod.POST)
@@ -57,7 +61,12 @@ public class BlogAndNewsController {
 		try {
 			Image image = new Image();
 		    image.setImageName(file.getOriginalFilename());
-            image.setData(file.getBytes());
+		    System.out.println("Original file size " + file.getBytes().length);
+		    
+		    byte[] compressedImage = compressionService.compress(file.getBytes(), "jpg");
+		    System.out.println("Compress file size " + compressedImage.length);
+		    
+            image.setData(compressedImage);
             blogAndNewsService.saveImage(image);
             jsonObject.put(CommonConstansts.DATA, image);
             jsonObject.put(CommonConstansts.STATUS, true);

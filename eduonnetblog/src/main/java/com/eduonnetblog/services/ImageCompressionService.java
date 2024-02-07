@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public interface ImageCompressionService {
 
-	byte[] compress(BufferedImage image, String formatName) throws IOException;
+	byte[] compress(byte[] imageData, String formatName) throws IOException;
 
 	BufferedImage decompress(byte[] imageData) throws IOException;
 

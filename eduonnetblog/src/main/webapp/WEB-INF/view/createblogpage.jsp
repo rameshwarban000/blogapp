@@ -45,71 +45,20 @@
 
 <script type="text/javascript">
 	var saveBlogOrNewsURL = '<c:url value="/saveblogornews"/>';
-	var uploadImage = '<c:url value="/uploadimage"/>';
+	var uploadImageURL = '<c:url value="/uploadimage"/>';
 
-	$(document)
-			.ready(
-					function() {
-						initTextEditor('descriptionText');
 
-						$('#uploadForm')
-								.submit(
-										function(e) {
+	$(document).ready(function() {
+		initTextEditor('descriptionText');
 
-											e.preventDefault();
+		$('#uploadForm').submit(function(e) {
 
-											var form = $('#uploadForm')[0];
+			e.preventDefault();
 
-											// Create an FormData object 
-											var data = new FormData(form);
+			uploadImage();
 
-											$
-													.ajax({
-														url : uploadImage,
-														type : 'POST',
-														data : data,
-														enctype : 'multipart/form-data',
-														processData : false,
-														contentType : false,
-														success : function(data) {
-															if (data.status) {
-																$('#message')
-																		.html(
-																				'File uploaded successfully!');
-																var byteData = data.data.data;
-																// Convert byte array to Blob
-																var blob = new Blob(
-																		[ new Uint8Array(
-																				byteData) ],
-																		{
-																			type : 'image/png'
-																		});
-																// Create an image element
-																var image = document
-																		.getElementById('uploadedImage');
-																// Set the source of the image to the Blob URL
-																image.src = URL
-																		.createObjectURL(blob);
-																$(
-																		'#uploadedImageContainer')
-																		.show();
-															} else {
-																$('#message')
-																		.html(
-																				'Error uploading file: '
-																						+ data.errorMessage);
-															}
-														},
-														error : function(xhr,
-																status, error) {
-															$('#message')
-																	.html(
-																			'Error uploading file: '
-																					+ error);
-														}
-													});
-										});
-					});
+		});
+	});
 </script>
 
 <title>Create Blog</title>

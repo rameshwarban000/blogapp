@@ -82,4 +82,14 @@ public class BlogOrNewsDao {
 		return (List<Description>) hibernateTemplate.findByNamedParam(hql, "entityIds", entityIds);
 	}
 
+	public List<Image> getImagesByIds(List<Long> imageIds) {
+	     if (imageIds.isEmpty()) {
+	    	 System.err.println("Image Ids empty");
+	            return new ArrayList<>(); // Return an empty list if imageIds is empty
+	        }
+	        String hql = "FROM Image i WHERE i.id IN (:imageIds)";
+	        return (List<Image>) hibernateTemplate.findByNamedParam(hql, "imageIds", imageIds);
+	    
+	}
+
 }

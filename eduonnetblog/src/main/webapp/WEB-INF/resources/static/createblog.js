@@ -1,3 +1,9 @@
+let localCache = {
+	
+	imageId : ""
+}
+
+
 const categoryWiseSubCategory = {
 	
 	"1" : [{ key : "1", value :  "Online Learning"},
@@ -48,11 +54,13 @@ const categoryWiseSubCategory = {
 }
 
 function saveBlogOrNews() {
+	// entity data
 	let title = $(`#title`).val();
 	let type = $(`#typeSelection`).val();
 	let category = $(`#category`).val();
 	let subCategory = $(`#subCategory`).val();
 
+	// description data
 	let descriptionTitle = $(`#descriptionTitle`).val();
 	let descriptionText = tinymce.get("descriptionText").getContent();
 	
@@ -61,7 +69,7 @@ function saveBlogOrNews() {
 		let descriptions = [{
 			title: descriptionTitle,
 			description: descriptionText,
-			img: ""
+			imageId: localCache.imageId
 		}]
 
 		let dataObject = {
@@ -104,6 +112,13 @@ function changeSubCategory(){
 	}
 }
 
+function uploadImage() {
+	var form = $('#uploadForm')[0];
+
+	// Create an FormData object 
+	var data = new FormData(form);
+	uploadImageAjax(data);
+}
 /*****************************Ajaxs**********************************/
 function saveBlogOrNewsAjax(dataObject) {
 	$.ajax({
@@ -118,10 +133,46 @@ function saveBlogOrNewsAjax(dataObject) {
 		success: function(data) {
 			let rdata = JSON.parse(data);
 			if (rdata.status) {
+				alert("data save")
 				//showToster('success', `${dataObject.type} is created Successfully.`, "Account Created Successfully.", 5, 'right');
 			} else {
+				alert("Fail to save data")
 				//showToster('error', `${dataObject.type} saving error : ${rdata.errorMessage}`, rdata.errorMessage + "!.", 5, 'right');
 			}
+		}
+	});
+}
+
+function uploadImageAjax(data) {
+	$.ajax({
+		url: uploadImageURL,
+		type: 'POST',
+		data: data,
+		enctype: 'multipart/form-data',
+		processData: false,
+		contentType: false,
+		success: function(data) {
+			if (data.status) {
+				localCache.imageId = data.data.id;
+				$('#message').html('File uploaded successfully!');
+				alert("Image is uploaded Successfully");
+				var byteData = data.data.data;
+				// Convert byte array to Blob
+				var blob = new Blob([new Uint8Array(byteData)],
+					{
+						type: 'image/png'
+					});
+				// Create an image element
+				var image = document.getElementById('uploadedImage');
+				// Set the source of the image to the Blob URL
+				image.src = URL.createObjectURL(blob);
+				$('#uploadedImageContainer').show();
+			} else {
+				$('#message').html('Error uploading file: ' + data.errorMessage);
+			}
+		},
+		error: function(xhr, status, error) {
+			$('#message').html('Error uploading file: ' + error);
 		}
 	});
 }
