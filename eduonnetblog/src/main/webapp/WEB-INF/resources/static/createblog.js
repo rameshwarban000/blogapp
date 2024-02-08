@@ -91,7 +91,7 @@ function validationBlogForm(title, type, descriptionText) {
 	}
 }
 function changeSubCategory(){
-	let categoryVal = $('#category').val().trim();
+	let categoryVal = $('#category').val();
 	if(categoryVal != undefined && categoryVal != ""){
 		$('#subCategory').empty();
 		let defaultOption = $(`<option value="">Select Sub-Category</option>`);
