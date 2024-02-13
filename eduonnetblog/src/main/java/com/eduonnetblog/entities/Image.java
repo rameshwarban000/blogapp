@@ -21,6 +21,8 @@ public class Image {
 	@Lob
 	private byte[] data;
 	
+	private Long date;
+	
 	
 	@ManyToOne
     @JoinColumn(name = "description_id")
@@ -56,6 +58,14 @@ public class Image {
 
 	public void setDescription(Description description) {
 		this.description = description;
+	}
+
+	public Long getDate() {
+		return date;
+	}
+
+	public void setDate(Long date) {
+		this.date = date;
 	}
 	
 	

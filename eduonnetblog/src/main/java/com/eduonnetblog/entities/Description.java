@@ -1,5 +1,6 @@
 package com.eduonnetblog.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,11 +15,15 @@ public class Description {
 	private long id;
 	
 	private String title;
+	
+	 @Column(name = "description", length = 4000) 
 	private String description;
 	
 	private Long blogId;
 	
 	private Long imageId;
+	
+	private Long date;
 	
 	public long getId() {
 		return id;
@@ -50,6 +55,11 @@ public class Description {
 	public void setBlogId(Long blogId) {
 		this.blogId = blogId;
 	}
-	
+	public Long getDate() {
+		return date;
+	}
+	public void setDate(Long date) {
+		this.date = date;
+	}
 	
  }

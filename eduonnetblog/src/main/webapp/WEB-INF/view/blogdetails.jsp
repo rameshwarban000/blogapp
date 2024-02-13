@@ -24,11 +24,6 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
-<!-- TinyTextEditor  -->
-<script
-	src="<c:url value="/resources/static/tinymce/js/tinymce/tinymce.min.js"/>"
-	referrerpolicy="origin"></script>
-
 <!-- page css  -->
 
 <link rel="stylesheet"
@@ -45,9 +40,19 @@
 
 <script type="text/javascript">
 
+var entity = eval(${entity});
+var descriptions = eval(${descriptions});
+var images = eval(${images});
+
+var recBlogList = eval(${recBlogList});
+var recDescList = eval(${recDescList});
+var recImgList = eval(${recImgList});
+
 $(document).ready(function(){
 	
-	initTextEditor('feedBackTextArea');
+	// render blog details
+	renderBlogDetails(entity, descriptions, images);
+	
 	
 	  $(document).click(function(event) {
 		    // Check if the clicked element is not the button or the div
@@ -56,7 +61,7 @@ $(document).ready(function(){
 		      $(".feedbackAndReportDiv").hide();
 		    }
 		  });
-})
+});
 </script>
 </head>
 <body>
@@ -105,42 +110,6 @@ $(document).ready(function(){
   </div>
 </nav>
 
-	<!-- header  -->
-<!-- 
-	<div class="mainNavBar">
-		<h4 style="position: absolute; left: 30px;">M-Work Blog</h4>
-
-		<div class="menu">
-			<button class="menuBtn" onclick="">Education</button>
-		</div>
-		<div class="menu">
-			<button class="menuBtn" onclick="">Technology</button>
-		</div>
-		<div class="menu">
-			<button class="menuBtn" onclick="">Programming</button>
-		</div>
-		<div class="menu">
-			<button class="menuBtn" onclick="">Temples</button>
-		</div>
-		<div class="menu">
-			<button class="menuBtn" onclick="">Places</button>
-		</div>
-		<div class="menu">
-			<button class="menuBtn" onclick="">Food</button>
-		</div>
-		<div class="menu">
-			<button class="menuBtn" onclick="">Health</button>
-		</div>
-		<div class="menu">
-			<button class="menuBtn" onclick="">Job Preparation</button>
-		</div>
-		<div class="menu">
-			<button class="menuBtn" onclick="">Colleges</button>
-		</div>
-	</div>
- -->
-
-
 	<div class="descritpionDetialsMainDiv">
 
 		<div class="blogButtonsDiv">
@@ -182,13 +151,13 @@ $(document).ready(function(){
 			<div class="blogDetails">
 
 				<div class="blogDetailsHeader">
-					<h2>Chhatrapati Shivaji Maharaj: The Great Maratha Warrior</h2>
-					<p>24 Jan. 2024. Time 8:30 PM</p>
+					<h2 id="blogTitle">--</h2>
+					<p id="blogDate">--</p>
 				</div>
 
-				<div class="">
-					<h4 class="detailsTitle">Chhatrapati Shivaji Shahaji Bhosle</h4>
-					<img alt="Blog Image"
+				<div class="descriptions">
+					<!-- <h4 class="detailsTitle">Chhatrapati Shivaji Shahaji Bhosle</h4> -->
+					<%-- <img alt="Blog Image"
 						src="<c:url value="/resources/static/img/chatrapati shivaji maharaj.jpg"/>"
 						width="100%"
 						style="border-radius: 10px; box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
@@ -215,7 +184,7 @@ $(document).ready(function(){
 							movement, as many Indian nationalists elevated him as a
 							proto-nationalist and hero of the Hindus.
 						</p>
-					</div>
+					</div> --%>
 				</div>
 			</div>
 		</div>
@@ -223,29 +192,40 @@ $(document).ready(function(){
 	</div>
 	<h5 style="margin: 10px 50px;">More Topics</h5>
 	<div class="topics">
-		<div class="topicSg">
-			<div class="topicHeader">topic header</div>
-			<div class="topicDesc">topic Description</div>
+		<div class="card" style="width: 18rem;">
+			<img src="..." class="card-img-top" alt="...">
+			<div class="card-body">
+				<p class="card-text">Some quick example text to build on the
+					card title and make up the bulk of the card's content.</p>
+			</div>
 		</div>
+		<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
 
-		<div class="topicSg">
-			<div class="topicHeader">topic header</div>
-			<div class="topicDesc">topic Description</div>
-		</div>
-		<div class="topicSg">
-			<div class="topicHeader">topic header</div>
-			<div class="topicDesc">topic Description</div>
-		</div>
-		<div class="topicSg">
-			<div class="topicHeader">topic header</div>
-			<div class="topicDesc">topic Description</div>
-		</div>
-		<div class="topicSg">
-			<div class="topicHeader">topic header</div>
-			<div class="topicDesc">topic Description</div>
-		</div>
 	</div>
-	
+
 	<div class="feedbackAndReportDiv" style="display: none">
 		<div><button class="btn " id="reportBtn" onclick="showReport()"><i class="bi bi-flag"></i> Report</button></div>
 		<div><button class="btn " id="feedbackBtn"  onclick="showFeedback()"><i class="bi bi-wechat"></i> Feedback</button></div>
@@ -283,7 +263,7 @@ $(document).ready(function(){
 	</div>
 	<!-- *************************************************  Feed back And report End ******************************************************-->
 
-	<div id="shareModal" class="modal">
+	<div id="shareModal" class="modal" style="display: none;">
 		<div class="modal-content">
 			<span class="close" style="text-align: right;">&times;</span>
 			<p>Share this blog with blow</p>

@@ -1,7 +1,5 @@
 package com.eduonnetblog.entities;
 
-import java.util.List;
-
 public class BlogOrNewsResObj {
 	
 	private long id;
@@ -9,6 +7,9 @@ public class BlogOrNewsResObj {
 	private Long category;
 	private Long subCategory;
 	private int type;// news 1 // blog 2
+	
+	private Long date;
+	
 	public long getId() {
 		return id;
 	}
@@ -39,5 +40,11 @@ public class BlogOrNewsResObj {
 	public void setType(int type) {
 		this.type = type;
 	}
-
+	public Long getDate() {
+		return date;
+	}
+	public void setDate(Long date) {
+		this.date = date;
+	}
+	
 }

@@ -24,4 +24,20 @@ public interface BlogAndNewsService {
 	public List<Description> getDescriptions(List<Long> descriptonIds);
 
 	public JSONObject getImageByIdList(List<Description> descriptions);
+
+	public void deleteBlogORNewsDescriptions(String entityId);
+
+	public void deleteEntityById(String entityId);
+
+	public void deleteDescriptionAndImageById(String entityId);
+
+	public void deleteDescriptionImage(String imgId);
+
+	public BlogOrNews getBlogOrNewsById(String entityId);
+
+	public List<Description> getDescriptionsByBlogOrNewsIds(List<Long> asList);
+
+	public List<Image> getImagesByIds(List<Long> imageIds);
+
+	public List<Description> getDescriptionsByBlogId(long parseLong);
 }

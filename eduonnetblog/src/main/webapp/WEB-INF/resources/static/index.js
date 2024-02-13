@@ -80,8 +80,6 @@ let categories = [
 
 function renderNews(newsList) {
 	if (newsList != undefined && newsList.length > 0) {
-		console.log("News data rendeing Started.");
-
 		for (let news of newsList) {
 			let newsDiv = $('<div class="news"> </div>');
 			$(".newsNews").append(newsDiv);
@@ -102,50 +100,33 @@ function renderNews(newsList) {
 				if (descWiseImages != undefined) {
 					let descriptionObj = news.descriptions[0];
 
-					let image = undefined;
-					for (let descriptionId in descWiseImages) {
-						if (descriptionId == descriptionObj.id) {
-							image = descWiseImages[descriptionId];
-							break;
-						}
-					}
-
+					let image = descWiseImages[descriptionObj.id];
 					// Inside your renderNews function
 
 					if (image != undefined) {
-						var byteData = image.data;
-						// Convert byte array to Blob
-						var blob = new Blob([new Uint8Array(byteData)],
-							{
-								type: 'image/png'
-							});
-						// Create an image element
-						var imageElement = document.createElement("img");
-						// Set the source of the image to the Blob URL
-						imageElement.src = URL.createObjectURL(blob);
-						mainTitleAndDescription.append($(imageElement));
-
+					
+						let imageUrl = getImageURLUsingByteData(image.data)
+						mainTitleAndDescription.css('background-image', 'url(' + imageUrl + ')');
 					}
 					description.append($(`<p>${news.descriptions[0].title}</p>`));
 				}
-
 				let socialDiv = $(`<div class="socialDiv"></div>`);
 				newsDiv.append(socialDiv);
-				/*	let likeBtn = $(`<button class="like"></button>`);
-					socialDiv.append(likeBtn);
-					likeBtn.append($(`<i class="bi bi-heart"></i>`));*/
 
 				let shareBtn = $(`<button class="share"></button>`);
 				socialDiv.append(shareBtn);
 				shareBtn.append($(`<i class="bi bi-share-fill"></i>`));
-
-				/*		let commentBtn = $(`<button class="comment"></button>`);
-						socialDiv.append(commentBtn);
-						commentBtn.append($(`<i class="bi bi-chat-left-text"></i>`));*/
 			}
-			console.log("News data rendeing Ended.");
 		}
 	}
+}
+// convert byte code to image 
+function getImageURLUsingByteData(byteData) {
+	var blob = new Blob([new Uint8Array(byteData)],
+		{
+			type: 'image/png'
+		});
+	return URL.createObjectURL(blob);
 }
 
 function renderBlogList(blogList) {
@@ -156,6 +137,17 @@ function renderBlogList(blogList) {
 			blogsDiv.append(blogDiv);
 
 			let blogImg = $(`<div class="blogImg"></div>`);
+			if (blog.descriptions != undefined && blog.descriptions.length > 0) {
+
+				let image = descWiseImages[blog.descriptions[0].id];
+				if (image != undefined) {
+
+					let imageUrl = getImageURLUsingByteData(image.data)
+					blogImg.css('background-image', 'url(' + imageUrl + ')');
+					blogImg.css('background-size', 'cover');
+					blogImg.css('background-position', 'center');
+				}
+			}
 			blogDiv.append(blogImg);
 			let dateAndDescriDiv = $(`<div></div>`);
 			blogDiv.append(dateAndDescriDiv);

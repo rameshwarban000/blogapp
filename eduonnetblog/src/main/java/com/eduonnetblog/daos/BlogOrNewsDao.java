@@ -22,7 +22,6 @@ public class BlogOrNewsDao {
 
 	public void saveBlogOrNews(BlogOrNews blogOrNews) {
 		 try {
-	            // Save the main BlogOrNews entity
 	            hibernateTemplate.saveOrUpdate(blogOrNews);
 	        } catch (Exception e) {
 	            throw new IllegalArgumentException(e.getMessage());
@@ -42,19 +41,32 @@ public class BlogOrNewsDao {
 	 * @param categoryId
 	 * @param i 
 	 * @return
+	 * @apiNote getting only id and title 
 	 */
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public List<BlogOrNews> getNewsOrBlogsByCategories(Long categoryId, int type) {
 
-		String hql = "FROM BlogOrNews WHERE category = :category AND type = :type";
-		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("category", categoryId);
-		parameters.put("type", type);
-		return (List<BlogOrNews>) hibernateTemplate.findByNamedParam(hql, parameters.keySet().toArray(new String[0]),
-				parameters.values().toArray());
-
+		String hql = "SELECT id, title, date FROM BlogOrNews WHERE category = :category AND type = :type";
+	    Map<String, Object> parameters = new HashMap<>();
+	    parameters.put("category", categoryId);
+	    parameters.put("type", type);
+	   List<Object[]> resultsArray =  (List<Object[]>) hibernateTemplate.findByNamedParam(hql, parameters.keySet().toArray(new String[0]),
+	            parameters.values().toArray());
+	   
+	   if(resultsArray != null && !resultsArray.isEmpty()) {
+		   List<BlogOrNews> blogOrNewsList = new ArrayList<BlogOrNews>();
+		   for(Object[] restlArray : resultsArray) {
+			   BlogOrNews blogOrNews = new  BlogOrNews();
+			   blogOrNews.setId((long) restlArray[0]);
+			   blogOrNews.setTitle((String) restlArray[1]);
+			   blogOrNews.setDate((long) restlArray[2]);
+			   blogOrNewsList.add(blogOrNews);
+		   }
+		  return blogOrNewsList;
+	   }
+	   return null;
 	}
-
+	
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	public List<Description> getDescriptionByBlogOrNewsIds(List<Long> newsIds) {
 	    if (newsIds == null || newsIds.isEmpty()) {
@@ -63,6 +75,8 @@ public class BlogOrNewsDao {
 	    String hql = "SELECT DISTINCT d FROM BlogOrNews b JOIN b.descriptions d WHERE b.id IN (:blogOrNewsIds)";
 	    return (List<Description>) hibernateTemplate.findByNamedParam(hql, "blogOrNewsIds", newsIds.toArray());
 	}
+
+
 
 	public List<Long> saveDescrptions(List<Description> descriptions) {
 		  try {
@@ -78,10 +92,26 @@ public class BlogOrNewsDao {
 	}
 
 	public List<Description> getDescriptionsByIds(List<Long> entityIds) {
-		String hql = "FROM Description d WHERE d.blogId IN (:entityIds)";	
-		return (List<Description>) hibernateTemplate.findByNamedParam(hql, "entityIds", entityIds);
-	}
+		String hql = "SELECT d.id, d.title, d.imageId, d.blogId, d.date FROM Description d WHERE d.blogId IN (:entityIds)";
+		List<Object[]> resultsArray = (List<Object[]>) hibernateTemplate.findByNamedParam(hql, "entityIds", entityIds);
+		if (resultsArray != null && !resultsArray.isEmpty()) {
 
+			List<Description> descriptions = new ArrayList<Description>();
+			for (Object[] results : resultsArray) {
+				Description description = new Description();
+				description.setId((long) results[0]);
+				description.setTitle((String) results[1]);
+				description.setImageId((Long) results[2]);
+				description.setBlogId((Long) results[3]);
+				description.setDate((Long) results[4]);
+				descriptions.add(description);
+			}
+			return descriptions;
+		}
+		return null;
+	}
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public List<Image> getImagesByIds(List<Long> imageIds) {
 	     if (imageIds.isEmpty()) {
 	    	 System.err.println("Image Ids empty");
@@ -91,5 +121,90 @@ public class BlogOrNewsDao {
 	        return (List<Image>) hibernateTemplate.findByNamedParam(hql, "imageIds", imageIds);
 	    
 	}
+	 @SuppressWarnings("deprecation")
+	public void deleteBlogORNewsDescriptions(long blogId) {
+	        String hql = "SELECT d.id, d.imageId FROM Description d WHERE d.blogId = :blogId";
+	        @SuppressWarnings("unchecked")
+			List<Object[]> resultsArray = (List<Object[]>) hibernateTemplate.findByNamedParam(hql, "blogId", blogId);
 
+	        if (resultsArray != null && !resultsArray.isEmpty()) {
+	            List<Long> descriptionIds = new ArrayList<>();
+	            List<Long> imageIds = new ArrayList<>();
+
+	            for (Object[] results : resultsArray) {
+	                descriptionIds.add((Long) results[0]);
+	                imageIds.add((Long) results[1]);
+	            }
+
+	            try {
+	                if (!descriptionIds.isEmpty()) {
+	                    // Delete descriptions
+	                    String hqlDeleteDescriptions = "DELETE FROM Description d WHERE d.id IN (:descriptionIds)";
+	                    int deletedDescriptionCount = hibernateTemplate.bulkUpdate(hqlDeleteDescriptions,
+	                            Collections.singletonMap("descriptionIds", descriptionIds));
+	                    System.out.println("Deleted description count: " + deletedDescriptionCount);
+	                }
+
+	                if (!imageIds.isEmpty()) {
+	                    // Delete images
+	                    String hqlDeleteImages = "DELETE FROM Image i WHERE i.id IN (:imageIds)";
+	                    int deletedImageCount = hibernateTemplate.bulkUpdate(hqlDeleteImages,
+	                            Collections.singletonMap("imageIds", imageIds));
+	                    System.out.println("Deleted image count: " + deletedImageCount);
+	                }
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	                // Handle exceptions
+	            }
+	        } else {
+	            System.out.println("Descriptions not found to delete.");
+	        }
+	    }
+
+	public void deleteEntityById(String entityId) {
+	    String hqlDeleteImages = "DELETE FROM BlogOrNews i WHERE i.id = (:entityId)";
+        @SuppressWarnings("deprecation")
+		int deletedEntityCount = hibernateTemplate.bulkUpdate(hqlDeleteImages,
+                Collections.singletonMap("entityId", Long.parseLong(entityId)));
+        System.out.println("Deleted entity count: " + deletedEntityCount);
+	}
+
+	public void deleteDescriptionAndImageById(String descriptionId) {
+		   // Delete the description by its id
+        Description description = hibernateTemplate.get(Description.class, descriptionId);
+        if (description != null) {
+            hibernateTemplate.delete(description);
+            System.out.println("Deleted description with id: " + descriptionId);
+        } else {
+            System.out.println("Description with id " + descriptionId + " not found.");
+        }
+		
+	}
+
+	public void deleteDescriptionImage(long imageId) {
+		// Delete Image by image id 
+		Image image = hibernateTemplate.get(Image.class, imageId);
+	    if (image != null) {
+            hibernateTemplate.delete(image);
+            System.out.println("Deleted Image with id: " + imageId);
+        } else {
+            System.out.println("Image with id " + imageId + " not found.");
+        }
+	}
+
+	public BlogOrNews getBlogOrNewsById(long entityId) {
+		BlogOrNews blogOrNews = hibernateTemplate.get(BlogOrNews.class, entityId);
+		if(blogOrNews != null) {
+			return blogOrNews;
+		}else {
+			System.err.println("BlogOrNews not found with id : "+entityId);
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Description> getDescriptionsBYBlogId(long blogId) {
+		return (List<Description>) hibernateTemplate.findByNamedParam(
+                "FROM Description d WHERE d.blogId = :blogId", "blogId", blogId);
+	}
 }

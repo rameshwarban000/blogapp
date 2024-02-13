@@ -121,10 +121,68 @@ function listenBlog(){
       // Set the text content to be spoken
       speech.text = blogText;
 
-      // Use a timeout to read each blog with a delay
+      // Use a timeout to read each blog with a delay	
       setTimeout(function() {
         // Speak the text
         window.speechSynthesis.speak(speech);
       }, index * 2000); // Adjust the delay (in milliseconds) between readings
     });
+}
+
+function renderBlogDetails(entity, descriptions, images){
+	if(entity != undefined && entity != null){
+		console.log("Blog rendering start...");
+		$(`#blogTitle`).html(entity.title);
+		let date = formatDateFromMilliseconds(entity.date);
+		$(`#blogDate`).html(date);
+		if(descriptions != undefined && descriptions.length > 0){
+			for(let description of descriptions){
+				//
+				$('.descriptions').append(`<h4 class="detailsTitle">${description.title}</h4>`);
+
+				let image = images.find(img => img.id == description.imageId);
+				if (image != undefined) {
+				let imageSrc = getImageURLUsingByteData(image.data)
+					let imageEle = $(`<img class="blogImge" width="100%">`);
+					imageEle.attr('src' , imageSrc);
+					
+					$('.descriptions').append(imageEle);
+				}
+				
+				let descriptionDetails = $(`<div class="descriptionDetails"></div>`);
+				$('.descriptions').append(descriptionDetails);
+				let p = $(`<p>${description.description}</p>`);
+				descriptionDetails.append(p);
+			}
+		}
+	}
+}
+
+
+function formatDateFromMilliseconds(milliseconds) {
+	// Create a new Date object from milliseconds
+	const date = new Date(milliseconds);
+
+	// Define months array for formatting
+	const months = [
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+	];
+
+	// Get day, month, and year from the date object
+	const day = String(date.getDate()).padStart(2, '0');
+	const month = months[date.getMonth()];
+	const year = date.getFullYear();
+
+	// Return formatted date string
+	return `${day} ${month} ${year}`;
+}
+
+// convert byte code to image 
+function getImageURLUsingByteData(byteData) {
+	var blob = new Blob([new Uint8Array(byteData)],
+		{
+			type: 'image/png'
+		});
+	return URL.createObjectURL(blob);
 }

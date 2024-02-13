@@ -19,6 +19,8 @@ public class BlogOrNews {
 	private Long subCategory;
 	private int type;// news 1 // blog 2
 	
+	private Long date;
+	
 	public long getId() {
 		return id;
 	}
@@ -57,8 +59,13 @@ public class BlogOrNews {
 	public void setType(int type) {
 		this.type = type;
 	}
-	
 
+	public Long getDate() {
+		return date;
+	}
+	public void setDate(Long date) {
+		this.date = date;
+	}
 	public static BlogOrNewsResObj getResponce(BlogOrNews blogOrNews) {
 		BlogOrNewsResObj blogOrNewsResObj = new BlogOrNewsResObj();
 		blogOrNewsResObj.setCategory(blogOrNews.getCategory());

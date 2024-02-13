@@ -98,8 +98,50 @@ public class BlogAndNewsServiceImpl implements BlogAndNewsService{
 		return null;
 	}
 
-	
+	@Override
+	@Transactional
+	public void deleteBlogORNewsDescriptions(String entityId) {
+		blogOrNewsDao.deleteBlogORNewsDescriptions(Long.parseLong(entityId));
+	}
 
-	
+	@Override
+	@Transactional
+	public void deleteEntityById(String entityId) {
+		blogOrNewsDao.deleteEntityById(entityId);
+	}
 
+	@Override
+	@Transactional
+	public void deleteDescriptionAndImageById(String entityId) {
+		blogOrNewsDao.deleteDescriptionAndImageById(entityId);
+	}
+
+	@Override
+	@Transactional
+	public void deleteDescriptionImage(String imgId) {
+		blogOrNewsDao.deleteDescriptionImage(Long.parseLong(imgId));
+	}
+
+	@Override
+	@Transactional
+	public BlogOrNews getBlogOrNewsById(String entityId) {
+		return blogOrNewsDao.getBlogOrNewsById(Long.parseLong(entityId));		
+	}
+
+	@Override
+	@Transactional
+	public List<Description> getDescriptionsByBlogOrNewsIds(List<Long> asList) {
+		return blogOrNewsDao.getDescriptionByBlogOrNewsIds(asList);
+	}
+
+	@Override
+	@Transactional
+	public List<Image> getImagesByIds(List<Long> imageIds) {
+		return blogOrNewsDao.getImagesByIds(imageIds);
+	}
+
+	@Override
+	public List<Description> getDescriptionsByBlogId(long blogId) {
+		return blogOrNewsDao.getDescriptionsBYBlogId(blogId);
+	}
 }

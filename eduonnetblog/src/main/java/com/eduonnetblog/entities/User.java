@@ -15,6 +15,7 @@ public class User {
 	private String email;
 	private String password;
 	private long mobNumber;
+	private int role;//  = admin , 2 = agent, 3 = user;
 	
 	public long getId() {
 		return id;
@@ -49,8 +50,16 @@ public class User {
 	public long getMobNumber() {
 		return mobNumber;
 	}
+	
 	public void setMobNumber(long mobNumber) {
 		this.mobNumber = mobNumber;
+	}
+	public int getRole() {
+		return role;
+	}
+	
+	public void setRole(int role) {
+		this.role = role;
 	}
 	
 }

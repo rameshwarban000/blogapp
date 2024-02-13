@@ -6,14 +6,14 @@
 
 .blogDetails {
 	text-align: justify;
-	width: 70%;
+	margin-right: 1%;
 }
 
 .descriptionDetails {
 	font-size: 20px;
 	font-family: emoji;
 	border-radius: 10px;
-	padding: 50px;
+	padding: 1%;
 	margin-top: 10px;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
@@ -21,7 +21,9 @@
 .blogBtnDiv {
 	margin: 10px 10px;
 }
-.blogButtonsDiv, .blogDetailsDiv{
+
+.blogButtonsDiv,
+.blogDetailsDiv {
 	padding-top: 70px;
 }
 
@@ -35,16 +37,22 @@
 }
 
 .btnBlog:hover,
-.detailsTitle:hover ,#reportBtn:hover, #feedbackBtn:hover, .nav-link:hover {
+.detailsTitle:hover,
+#reportBtn:hover,
+#feedbackBtn:hover,
+.nav-link:hover {
 	box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 	background-color: #add8e645;
 }
 
 .topics {
-	display: flex;
-	gap: 40px;
-	justify-content: center;
-	margin-bottom: 10px;
+    display: flex;
+    gap: 40px;
+    margin-bottom: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .topicSg {
@@ -95,58 +103,67 @@
 	border-radius: 10px;
 	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
-.headerOfFeedBackAndReportDiv{
+
+.headerOfFeedBackAndReportDiv {
 	padding: 10px;
 	background-color: lightgray;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 }
-.textDivOfFeedbackAndReportDiv{
+
+.textDivOfFeedbackAndReportDiv {
 	padding: 10px;
 }
-.feedbackandreportbtndiv{
+
+.feedbackandreportbtndiv {
 	display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    padding-right: 11px;
+	gap: 10px;
+	justify-content: flex-end;
+	padding-right: 11px;
 }
-#reportBtn, #feedbackBtn{
+
+#reportBtn,
+#feedbackBtn {
 	width: 100%;
 }
 
 
 /* Optional: Style the modal and buttons */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.5);
+	text-align: center;
+	    padding-left: 20%;
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 30%;
+	background-color: #fefefe;
+    border: 1px solid #888;
+    width: 80%;
+    margin-top: 30%;
 }
 
 .close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
 }
 
+.blogImge {
+	border-radius: 10px;
+	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
