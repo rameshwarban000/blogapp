@@ -52,6 +52,7 @@ $(document).ready(function(){
 	
 	// render blog details
 	renderBlogDetails(entity, descriptions, images);
+	renderRecomendedBlogList(recBlogList, recDescList, recImgList);
 	
 	
 	  $(document).click(function(event) {
@@ -65,7 +66,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top blogTopNavbar" >
   <div class="container-fluid">
     <a class="navbar-brand" href="#">M-Work Blog</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,37 +74,33 @@ $(document).ready(function(){
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <!-- <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" href="#">Features</a>
-        <a class="nav-link" href="#">Pricing</a>
-        <a class="nav-link disabled" aria-disabled="true">Disabled</a> -->
         
 		<div class="nav-link">
-			<button class="menuBtn" onclick="">Education</button>
+			<button class="menuBtn" onclick=""><i class="bi bi-backpack2-fill"></i> Education</button>
 		</div>
 		<div class="nav-link">
-			<button class="menuBtn" onclick="">Technology</button>
+			<button class="menuBtn" onclick=""><i class="bi bi-motherboard-fill"></i> Technology</button>
 		</div>
 		<div class="nav-link">
-			<button class="menuBtn" onclick="">Programming</button>
+			<button class="menuBtn" onclick=""><i class="bi bi-code-slash"></i> Programming</button>
 		</div>
 		<div class="nav-link">
-			<button class="menuBtn" onclick="">Temples</button>
+			<button class="menuBtn" onclick=""> <i class="bi bi-bank"></i> Temples</button>
 		</div>
 		<div class="nav-link">
-			<button class="menuBtn" onclick="">Places</button>
+			<button class="menuBtn" onclick=""><i class="bi bi-geo-alt-fill"></i> Places</button>
 		</div>
 		<div class="nav-link">
-			<button class="menuBtn" onclick="">Food</button>
+			<button class="menuBtn" onclick=""><i class="bi bi-egg-fried"></i> Food</button>
 		</div>
 		<div class="nav-link">
-			<button class="menuBtn" onclick="">Health</button>
+			<button class="menuBtn" onclick=""><i class="bi bi-lungs-fill"></i> Health</button>
 		</div>
 		<div class="nav-link">
-			<button class="menuBtn" onclick="">Job Preparation</button>
+			<button class="menuBtn" onclick=""><i class="bi bi-briefcase-fill"></i> Job Preparation</button>
 		</div>
 		<div class="nav-link">
-			<button class="menuBtn" onclick="">Colleges</button>
+			<button class="menuBtn" onclick=""><i class="bi bi-bank2"></i> Colleges</button>
 		</div>
       </div>
     </div>
@@ -151,40 +148,14 @@ $(document).ready(function(){
 			<div class="blogDetails">
 
 				<div class="blogDetailsHeader">
-					<h2 id="blogTitle">--</h2>
-					<p id="blogDate">--</p>
+					<label id="blogTitle" title="Blog main title">--</label>
+					<label>
+					 <i class="bi bi-calendar-month-fill"></i><span id="blogDate" title="last updated date">--</span>
+					</label>
 				</div>
 
 				<div class="descriptions">
-					<!-- <h4 class="detailsTitle">Chhatrapati Shivaji Shahaji Bhosle</h4> -->
-					<%-- <img alt="Blog Image"
-						src="<c:url value="/resources/static/img/chatrapati shivaji maharaj.jpg"/>"
-						width="100%"
-						style="border-radius: 10px; box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
-					<div class="descriptionDetails">
-
-						<p>
-							<span style="color: skyblue; font-size: 40px; margin-left: 30px;">C</span>
-							hhatrapati Shivaji Maharaj was an Indian ruler and a member of
-							the Bhonsle Maratha clan. He was born on 19 February 1630 at
-							Shivneri Fort, near the city of Junnar, which is now in Pune
-							district1. Shivaji carved out his own independent kingdom from
-							the declining Adilshahi Sultanate of Bijapur that formed the
-							genesis of the Maratha Empire1. He established a competent and
-							progressive civil administration with well-structured
-							administrative institutions. He revived ancient Hindu political
-							traditions, court conventions and promoted the use of the Marathi
-							and Sanskrit languages, replacing Persian at court and in
-							administration1. Praised for his chivalrous treatment of women,
-							Shivaji employed people of all castes and religions, including
-							Muslims and Europeans, in his administration and armed forces1.
-							Shivaji legacy was to vary by observer and time, but nearly two
-							centuries after his death he began to take on increased
-							importance with the emergence of the Indian independence
-							movement, as many Indian nationalists elevated him as a
-							proto-nationalist and hero of the Hindus.
-						</p>
-					</div> --%>
+					
 				</div>
 			</div>
 		</div>
@@ -192,37 +163,6 @@ $(document).ready(function(){
 	</div>
 	<h5 style="margin: 10px 50px;">More Topics</h5>
 	<div class="topics">
-		<div class="card" style="width: 18rem;">
-			<img src="..." class="card-img-top" alt="...">
-			<div class="card-body">
-				<p class="card-text">Some quick example text to build on the
-					card title and make up the bulk of the card's content.</p>
-			</div>
-		</div>
-		<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
 
 	</div>
 

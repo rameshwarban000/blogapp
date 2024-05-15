@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.eduonnetblog.entities.BlogOrNews;
 import com.eduonnetblog.entities.Description;
 import com.eduonnetblog.entities.Image;
+import com.mysql.cj.Query;
 
 @Service
 public class BlogOrNewsDao {
@@ -206,5 +208,13 @@ public class BlogOrNewsDao {
 	public List<Description> getDescriptionsBYBlogId(long blogId) {
 		return (List<Description>) hibernateTemplate.findByNamedParam(
                 "FROM Description d WHERE d.blogId = :blogId", "blogId", blogId);
+	}
+
+	public List<BlogOrNews> getAllBlockAndNews(Long pageNumber, Long pageSize) {
+		    Session session = hibernateTemplate.getSessionFactory().getCurrentSession();
+		    org.hibernate.Query<BlogOrNews> query = session.createQuery("FROM Entity", BlogOrNews.class);
+		    query.setFirstResult((pageNumber - 1) * pageSize);
+		    query.setMaxResults(pageSize);
+		    return query.getResultList();
 	}
 }

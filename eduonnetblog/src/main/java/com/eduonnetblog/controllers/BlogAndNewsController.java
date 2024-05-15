@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eduonnetblog.entities.BlogOrNews;
-import com.eduonnetblog.entities.BlogOrNewsResObj;
 import com.eduonnetblog.entities.Description;
 import com.eduonnetblog.entities.Image;
 import com.eduonnetblog.services.BlogAndNewsService;
@@ -30,14 +29,20 @@ import net.sf.json.JSONObject;
 
 @Controller
 public class BlogAndNewsController {
-	
+
 	@Autowired
 	BlogAndNewsService blogAndNewsService;
-	
+
 	@Autowired
 	ImageCompressionService compressionService;
 
-	
+	/**
+	 * @author RAMESHWAR
+	 * @param response
+	 * @param request
+	 * @throws IOException
+	 * @description This method will save the blog or news object
+	 */
 	@RequestMapping(value = "/saveblogornews", method = RequestMethod.POST)
 	public void saveBlogOrNews(HttpServletResponse response, @RequestBody BlogOrNewsReqObj request) throws IOException {
 		JSONObject jsonObject = new JSONObject();
@@ -45,69 +50,97 @@ public class BlogAndNewsController {
 			BlogOrNews blogOrNews = BlogOrNewsReqObj.getEntity(request);
 			Date date = new Date();
 			blogOrNews.setDate(date.getTime());
-			List<Description> descriptions = request.getDescriptions();			
+			List<Description> descriptions = request.getDescriptions();
 			blogAndNewsService.saveBlogOrNews(blogOrNews);
-			for(Description description : descriptions) {
+			for (Description description : descriptions) {
 				description.setBlogId(blogOrNews.getId());
 				description.setDate(date.getTime());
 			}
-			
 			blogAndNewsService.saveDescriptions(descriptions);
 
 			jsonObject.put(CommonConstansts.STATUS, true);
-		} catch (Exception e) {
-			jsonObject = MWorkBlogUtility.handleException(jsonObject, e);
-		}
-		MWorkBlogUtility.writeDatainResponce(response, jsonObject.toString());
-	}
-	
-	@PostMapping("/uploadimage")
-	public void handleFileUpload(HttpServletResponse response, @RequestParam("file") MultipartFile file) throws IOException {
-		JSONObject jsonObject = new JSONObject();
-		try {
-			Image image = new Image();
-			Date date = new  Date();
-			image.setDate(date.getTime());
-		    image.setImageName(file.getOriginalFilename());
-		    System.out.println("Original file size " + file.getBytes().length);
-		    
-		    byte[] compressedImage = compressionService.compress(file.getBytes(), "jpg");
-		    System.out.println("Compress file size " + compressedImage.length);
-		    
-            image.setData(compressedImage);
-            blogAndNewsService.saveImage(image);
-            jsonObject.put(CommonConstansts.DATA, image);
-            jsonObject.put(CommonConstansts.STATUS, true);
+			jsonObject.put(CommonConstansts.DATA, blogOrNews.getId());
 
 		} catch (Exception e) {
 			jsonObject = MWorkBlogUtility.handleException(jsonObject, e);
 		}
 		MWorkBlogUtility.writeDatainResponce(response, jsonObject.toString());
 	}
-	
-	
-	@RequestMapping(value = "/deleteEntity/{entityId}" , method = RequestMethod.GET )
-	public void deleteEntity(HttpServletResponse response, @PathVariable String entityId) throws IOException {
-		
+
+	/**
+	 * @author RAMESHWAR
+	 * @apiNote update only Blog or news entity.
+	 * @param response
+	 * @param request
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/updateBlogornews", method = RequestMethod.POST)
+	public void updateBlogOrNews(HttpServletResponse response, @RequestBody BlogOrNewRequestObj request)
+			throws IOException {
 		JSONObject jsonObject = new JSONObject();
 		try {
-			// delete all description 
-			blogAndNewsService.deleteBlogORNewsDescriptions(entityId);
-			
-			// delete entity 
-			blogAndNewsService.deleteEntityById(entityId);
-			
+			BlogOrNews blogOrNews = BlogOrNewRequestObj.getEntity(request);
+			Date date = new Date();
+			blogOrNews.setDate(date.getTime());
+
+			blogAndNewsService.saveBlogOrNews(blogOrNews);
+
 			jsonObject.put(CommonConstansts.STATUS, true);
-			
+			jsonObject.put(CommonConstansts.DATA, JSONObject.fromObject(blogOrNews));
+
 		} catch (Exception e) {
 			jsonObject = MWorkBlogUtility.handleException(jsonObject, e);
 		}
 		MWorkBlogUtility.writeDatainResponce(response, jsonObject.toString());
 	}
-	
+
+	@PostMapping("/uploadimage")
+	public void handleFileUpload(HttpServletResponse response, @RequestParam("file") MultipartFile file)
+			throws IOException {
+		JSONObject jsonObject = new JSONObject();
+		try {
+			Image image = new Image();
+			Date date = new Date();
+			image.setDate(date.getTime());
+			image.setImageName(file.getOriginalFilename());
+			System.out.println("Original file size " + file.getBytes().length);
+
+			byte[] compressedImage = compressionService.compress(file.getBytes(), "jpg");
+			System.out.println("Compress file size " + compressedImage.length);
+
+			image.setData(compressedImage);
+			blogAndNewsService.saveImage(image);
+			jsonObject.put(CommonConstansts.DATA, image);
+			jsonObject.put(CommonConstansts.STATUS, true);
+
+		} catch (Exception e) {
+			jsonObject = MWorkBlogUtility.handleException(jsonObject, e);
+		}
+		MWorkBlogUtility.writeDatainResponce(response, jsonObject.toString());
+	}
+
+	@RequestMapping(value = "/deleteBlogOrNew", method = RequestMethod.POST)
+	public void deleteEntity(HttpServletResponse response, @PathVariable DeleteEntityReqObj reqObj) throws IOException {
+
+		JSONObject jsonObject = new JSONObject();
+		try {
+			// delete all description
+			blogAndNewsService.deleteBlogORNewsDescriptions(reqObj.getBlogOrNewsId().toString());
+
+			// delete entity
+			blogAndNewsService.deleteEntityById(reqObj.getBlogOrNewsId().toString());
+
+			jsonObject.put(CommonConstansts.STATUS, true);
+
+		} catch (Exception e) {
+			jsonObject = MWorkBlogUtility.handleException(jsonObject, e);
+		}
+		MWorkBlogUtility.writeDatainResponce(response, jsonObject.toString());
+	}
+
 	@RequestMapping(value = "/deleteDesc/{entityId}", method = RequestMethod.GET)
 	public void deleteDesc(HttpServletResponse response, @PathVariable String entityId) throws IOException {
-		
+
 		JSONObject jsonObject = new JSONObject();
 		try {
 			// delete Description & images
@@ -118,41 +151,43 @@ public class BlogAndNewsController {
 		}
 		MWorkBlogUtility.writeDatainResponce(response, jsonObject.toString());
 	}
-	
+
 	@RequestMapping(value = "/deleteImg/{imgId}", method = RequestMethod.GET)
 	public void deleteImg(HttpServletResponse response, @PathVariable String imgId) throws IOException {
-		
+
 		JSONObject jsonObject = new JSONObject();
 		try {
 			blogAndNewsService.deleteDescriptionImage(imgId);
 			jsonObject.put(CommonConstansts.STATUS, true);
-			
+
 		} catch (Exception e) {
 			jsonObject = MWorkBlogUtility.handleException(jsonObject, e);
 		}
 		MWorkBlogUtility.writeDatainResponce(response, jsonObject.toString());
 	}
-	
-	@RequestMapping(value ="/getEntityWiseInfo/{entityId}", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/getEntityWiseInfo/{entityId}", method = RequestMethod.GET)
 	public void getEntityWiseInfo(HttpServletResponse response, @PathVariable String entityId) throws IOException {
-		
+
 		JSONObject jsonObject = new JSONObject();
 		try {
 			BlogOrNews entity = blogAndNewsService.getBlogOrNewsById(entityId);
-			List<Description> descriptions ;
+			List<Description> descriptions;
 			List<Image> images;
-			
-			if(entity != null) {
+
+			if (entity != null) {
 				jsonObject.put(CommonConstansts.STATUS, true);
 				jsonObject.put(CommonConstansts.DATA, entity);
 			}
 			jsonObject.put(CommonConstansts.STATUS, false);
 			jsonObject.put(CommonConstansts.ERROR_MESSAGE, "Entity not found");
-			
+
 		} catch (Exception e) {
 			jsonObject = MWorkBlogUtility.handleException(jsonObject, e);
 		}
 		MWorkBlogUtility.writeDatainResponce(response, jsonObject.toString());
 	}
+
+
 	
 }

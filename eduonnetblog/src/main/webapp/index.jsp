@@ -23,249 +23,251 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <!-- page css -->
-
-<link rel="stylesheet"
-	href="<c:url value="/resources/static/indexPage.css"/>">
-<script type="text/javascript"
-	src="<c:url value="/resources/static/index.js"/>"></script>
-
+<link rel="stylesheet" href="<c:url value="/resources/static/homepage.css" />" />
 
 <script type="text/javascript">
-	/* var aboutmePageURL = '<c:url value="/aboutme"/>'; */
-	
-	$(document).ready(function(){
-		renderNews();
-		renderCategories();
+
+	$(document).ready(function() {
+
 	})
 </script>
-<title>Blogs Page</title>
+<title>Dashboard</title>
 
-
-<!-- google add link  -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7846227789325433"
-     crossorigin="anonymous"></script>
 <body>
-	<div class="">
-		<div class="mainNavBar">
-			<h4 style="position:absolute; left: 30px;">Welcome to M-Work Blog</h4>
-		</div>
-		<div style="text-align: center; margin-top: 10px;">
-			
-		</div>
-		<!--  -->
-				<h4 style="text-align: center">Tranding News</h4>
-		<div class="newsAndAdd">
-		<!-- Affilate Marketing -->
-			<div class="newAdd">add</div>
 
-			<div class="newsNews">
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">M-Work Blog</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarText"
+				aria-controls="navbarText" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarText">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="#">About Us</a></li>
+					<li class="nav-item"><a class="nav-link active" href="#">Contact
+							Us</a></li>
+				</ul>
 			</div>
-			<!-- Affilate Marketing -->
-			<div class="newAdd">add</div>
 		</div>
-		<!-- main blog UI -->
-	<!-- 	<div class="allAddDiv">
-	
-		</div> -->
-		<!-- Main Blogs UI  -->
-		<div class="blogPanelAndAdd">
-			<div class="leftSideNav" style="padding:10px;">
-				<label style="padding: 5px 5px;"> <i class="bi bi-bookmark-fill"></i> Categories</label>
-				<div style="overflow: auto;" class="categoriesDiv">
-					
-				</div>
+	</nav>
 
-			</div>
-			<div class="blogsDiv">
-				<div class="blog">
-					<div class="blogImg">image</div>
-					<div>
-						<div class="blogDate">01-02-24</div>
-						<div class="blogTitle">Pushpa 2 Kanatra Most avaited film</div>
-						<div class="likeUnlikeBtnDiv">
-							<i class="bi bi-hand-thumbs-up"></i>
-							<i class="bi bi-hand-thumbs-down"></i>
-							<i class="bi bi-chat-left"></i>
-							<i class="bi bi-share"></i>
-						</div>
-					</div>
-
-				</div>
-				<div class="blog">
-					<div class="blogImg">image</div>
-					<div>
-						<div class="blogDate">01-02-24</div>
-						<div class="blogTitle">Pushpa 2 Kanatra Most avaited film</div>
-						<div class="likeUnlikeBtnDiv">
-							<i class="bi bi-hand-thumbs-up"></i>
-							<i class="bi bi-hand-thumbs-down"></i>
-							<i class="bi bi-chat-left"></i>
-							<i class="bi bi-share"></i>
-						</div>
-					</div>
-
-				</div>
-				<div class="blog">
-					<div class="blogImg">image</div>
-					<div>
-						<div class="blogDate">01-02-24</div>
-						<div class="blogTitle">Pushpa 2 Kanatra Most avaited film</div>
-						<div class="likeUnlikeBtnDiv">
-							<i class="bi bi-hand-thumbs-up"></i>
-							<i class="bi bi-hand-thumbs-down"></i>
-							<i class="bi bi-chat-left"></i>
-							<i class="bi bi-share"></i>
-						</div>
-					</div>
-
-				</div>
-				<div class="blog">
-					<div class="blogImg">image</div>
-					<div>
-						<div class="blogDate">01-02-24</div>
-						<div class="blogTitle">Pushpa 2 Kanatra Most avaited film</div>
-						<div class="likeUnlikeBtnDiv">
-							<i class="bi bi-hand-thumbs-up"></i>
-							<i class="bi bi-hand-thumbs-down"></i>
-							<i class="bi bi-chat-left"></i>
-							<i class="bi bi-share"></i>
-						</div>
-					</div>
-
-				</div>
-				<div class="blog">
-					<div class="blogImg">image</div>
-					<div>
-						<div class="blogDate">01-02-24</div>
-						<div class="blogTitle">Pushpa 2 Kanatra Most avaited film</div>
-						<div class="likeUnlikeBtnDiv">
-							<i class="bi bi-hand-thumbs-up"></i>
-							<i class="bi bi-hand-thumbs-down"></i>
-							<i class="bi bi-chat-left"></i>
-							<i class="bi bi-share"></i>
-						</div>
-					</div>
-
-				</div>
-				<div class="blog">
-					<div class="blogImg">image</div>
-					<div>
-						<div class="blogDate">01-02-24</div>
-						<div class="blogTitle">Pushpa 2 Kanatra Most avaited film</div>
-						<div class="likeUnlikeBtnDiv">
-							<i class="bi bi-hand-thumbs-up"></i>
-							<i class="bi bi-hand-thumbs-down"></i>
-							<i class="bi bi-chat-left"></i>
-							<i class="bi bi-share"></i>
-						</div>
-					</div>
-
-				</div>
-				<div class="blog">
-					<div class="blogImg">image</div>
-					<div>
-						<div class="blogDate">01-02-24</div>
-						<div class="blogTitle">Pushpa 2 Kanatra Most avaited film</div>
-						<div class="likeUnlikeBtnDiv">
-							<i class="bi bi-hand-thumbs-up"></i>
-							<i class="bi bi-hand-thumbs-down"></i>
-							<i class="bi bi-chat-left"></i>
-							<i class="bi bi-share"></i>
-						</div>
-					</div>
-
-				</div>
-				<div class="blog">
-					<div class="blogImg">image</div>
-					<div>
-						<div class="blogDate">01-02-24</div>
-						<div class="blogTitle">Pushpa 2 Kanatra Most avaited film</div>
-						<div class="likeUnlikeBtnDiv">
-							<i class="bi bi-hand-thumbs-up"></i>
-							<i class="bi bi-hand-thumbs-down"></i>
-							<i class="bi bi-chat-left"></i>
-							<i class="bi bi-share"></i>
-						</div>
-					</div>
-
-				</div>
-				<div class="blog">
-					<div class="blogImg">image</div>
-					<div>
-						<div class="blogDate">01-02-24</div>
-						<div class="blogTitle">Pushpa 2 Kanatra Most avaited film</div>
-						<div class="likeUnlikeBtnDiv">
-							<i class="bi bi-hand-thumbs-up"></i>
-							<i class="bi bi-hand-thumbs-down"></i>
-							<i class="bi bi-chat-left"></i>
-							<i class="bi bi-share"></i>
-						</div>
-					</div>
-
-				</div>
-				<div class="blog">
-					<div class="blogImg">image</div>
-					<div>
-						<div class="blogDate">01-02-24</div>
-						<div class="blogTitle">Pushpa 2 Kanatra Most avaited film</div>
-						<div class="likeUnlikeBtnDiv">
-							<i class="bi bi-hand-thumbs-up"></i>
-							<i class="bi bi-hand-thumbs-down"></i>
-							<i class="bi bi-chat-left"></i>
-							<i class="bi bi-share"></i>
-						</div>
-					</div>
-
-				</div>
-				<div class="blog">
-					<div class="blogImg">image</div>
-					<div>
-						<div class="blogDate">01-02-24</div>
-						<div class="blogTitle">Pushpa 2 Kanatra Most avaited film</div>
-						<div class="likeUnlikeBtnDiv">
-							<i class="bi bi-hand-thumbs-up"></i>
-							<i class="bi bi-hand-thumbs-down"></i>
-							<i class="bi bi-chat-left"></i>
-							<i class="bi bi-share"></i>
-						</div>
-					</div>
-
-				</div>
-			
-			</div>
-			<div class="blogDiv" style="display: none;">Blogs</div>
-			<div class="blogSideAdd">Adds</div>
+	<div class="mainIntroDiv">
+		<div class="textOfIntro" style="width: 50%;">
+			<h2 class="headTitle">Read the Qulity Content</h2>
+			<p>We give you the best content for consume and learn.</p>
 		</div>
-
-		<!-- Related Topics  -->
-		<div style="margin-top: 5px; margin-left: 5px;">
-			<p>Related Topics</p>
+		<div style="width: 50%;">
+			<img src="<c:url value="/resources/static/img/homePageImg/blogIllustrator.jpg" />"  width="100%" height="auto">
 		</div>
-		<div class="topicDiv">
-			<div class="topic">Daily Inspiration</div>
-			<div class="topic">Productivity Hacks</div>
-			<div class="topic">Recipe of the Day</div>
-			<div class="topic">Wellness Tips</div>
-		</div>
-		<div class="footerAdd">Footer Add</div>
-
-
-		<footer class="site-footer">
-			<div class="container">
-				<div class="footer-content">
-					<div class="footer-links">
-						<a href="#">Home</a> <a href="<c:url value="/aboutme"/>">About</a>
-						<a href="#">Contact</a> <a href="#">Products</a>
-					</div>
-					<div class="like-buttons">
-						<button class="like-button">Like</button>
-						<button class="like-button">Love</button>
-					</div>
-				</div>
-				<div class="copyright">&copy; 2024 Your Blog. All rights
-					reserved.</div>
-			</div>
-		</footer>
 	</div>
+	<div style="text-align: center; padding-top: 50px;">
+
+		<h2 style="font-size: medium;">Best Content for your fevrate
+			Content</h2>
+		<div style="display: flex; justify-content: center; gap: 10px;">
+			<div class="contentInfoDiv">
+				<div class="contentInfoInnerDiv">
+					<span class="contentInfoTitle">Based On Reserch</span><br> <span>All
+						content wrote on reserch.</span>
+				</div>
+				<div>
+					<img class="infoImg" src="<c:url value="/resources/static/img/homePageImg/reserch.jpg" />" alt="..." width="100%">
+				</div>
+			</div>
+			<div class="contentInfoDiv">
+				<div class="contentInfoInnerDiv">
+					<span class="contentInfoTitle">Best Qulity</span><br> <span>Best
+						Quilty Images for better Understanding</span>
+				</div>
+				<div>
+					<img class="infoImg" src="<c:url value="/resources/static/img/homePageImg/quility.jpg"/>" alt="..." width="100%"
+						height="auto">
+				</div>
+			</div>
+			<div class="contentInfoDiv">
+				<div class="contentInfoInnerDiv">
+					<span class="contentInfoTitle">Reach Ui/UX</span><br> <span>Best
+						UI for only reading not any confusion</span>
+				</div>
+				<div>
+					<img class="infoImg" src="<c:url value="/resources/static/img/homePageImg/uiux.jpg"/>" alt="..." width="100%">
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="container infodivsMain">
+		<div class="infodivs">
+			<!-- Education -->
+			<div>
+				<h4>
+					<a href="/eduonnetblog/categoryWiseBlogs/1"><i class="bi bi-award-fill"></i> Education</a>
+				</h4>
+				<p>Unlocking the Power of Education: Explore Insights, Tips, and
+					Resources for Lifelong Learning</p>
+			</div>
+			<div class="infodivsInnderDivImg">
+				<img src="<c:url value="/resources/static/img/homePageImg/education illustrator.jpg"/>" alt="myImg" width="100%">
+			</div>
+		</div>
+
+		<div class="infodivs">
+			<!-- Programming -->
+			<div class="infodivsInnderDivImg">
+				<img src="<c:url value="/resources/static/img/homePageImg/programming.jpg"/>" alt="myImg" width="100%">
+			</div>
+			<div>
+				<h4>
+					<h4>
+						<a href="/eduonnetblog/categoryWiseBlogs/2"><i class="bi bi-code-slash"></i> Programming </a>
+					</h4>
+					<p>Decoding the World of Programming: Your Gateway to Expertise
+						and Innovation</p>
+				</h4>
+			</div>
+		</div>
+
+		<div class="infodivs">
+			<!-- Technology -->
+			<div>
+				<h4>
+					<a href="/eduonnetblog/categoryWiseBlogs/3"><i class="bi bi-cpu-fill"></i> Technology </a>
+				</h4>
+				<p>Embrace Tomorrow's Tech Today: Stay Ahead with Insights into
+					the Future of Technology</p>
+			</div>
+			<div class="infodivsInnderDivImg">
+				<img src="<c:url value="/resources/static/img/homePageImg/tech.jpg"/>" alt="myImg" width="100%">
+			</div>
+		</div>
+
+		<div class="infodivs">
+			<!-- Temples / Places -->
+			<div class="infodivsInnderDivImg">
+				<img src="<c:url value="/resources/static/img/homePageImg/temple.jpg"/>" alt="myImg" width="100%">
+			</div>
+			<div>
+				<h4>
+					<h4>
+						<a href="/eduonnetblog/categoryWiseBlogs/4"><i class="bi bi-geo-alt-fill"></i> Temples & Places </a>
+					</h4>
+					<p>Journey Through Temples of Knowledge: Exploring Timeless
+						Wisdom and Tradition</p>
+				</h4>
+			</div>
+		</div>
+		<div class="infodivs">
+			<!-- Food  -->
+			<div>
+				<h4>
+					<a href="/eduonnetblog/categoryWiseBlogs/5"><i class="bi bi-egg-fried"></i> Food </a>
+				</h4>
+				<p>Feast Your Eyes and Appetite: Savour the Stories, Recipes,
+					and Culinary Adventures Advice: "Explore new tastes, but always
+					remember to cook with love and savor every bite."</p>
+			</div>
+			<div class="infodivsInnderDivImg">
+				<img src="<c:url value="/resources/static/img/homePageImg/food.jpg"/>" alt="myImg" width="100%">
+			</div>
+		</div>
+
+		<div class="infodivs">
+			<!-- Health  -->
+			<div class="infodivsInnderDivImg">
+				<img src="<c:url value="/resources/static/img/homePageImg/health.jpg"/>" alt="myImg" width="100%">
+			</div>
+			<div>
+				<h4>
+					<h4>
+						<a href="/eduonnetblog/categoryWiseBlogs/6"><i class="bi bi-lungs-fill"></i> Health </a>
+					</h4>
+					<p>Empowering Health: Your Guide to Wellness, Fitness, and
+						Holistic Living" Advice: "Make informed choices, prioritize
+						preventive care, and remember, health is a journey, not a
+						destination.</p>
+				</h4>
+			</div>
+		</div>
+		<div class="infodivs">
+			<!-- Food  -->
+			<div>
+				<h4>
+					<a href="/eduonnetblog/categoryWiseBlogs/7"><i class="bi bi-briefcase-fill"></i> Job </a>
+				</h4>
+				<p>Empowering Your Career Journey: Discover Opportunities,
+					Insights, and Success Stories" Advice: "Stay persistent, keep
+					learning, and remember, the right opportunity is just around the
+					corner.</p>
+			</div>
+			<div class="infodivsInnderDivImg">
+				<img src="<c:url value="/resources/static/img/homePageImg/jobs.jpg"/>" alt="myImg" width="100%">
+			</div>
+		</div>
+	</div>
+
+<!-- 	<div class="mostReadedBolgListMainDiv" style="margin-top: 20px;">
+		<div style="text-align: center;">
+			<h3>Most Readed Blogs</h3>
+		</div>
+		<div class="mostReadedBlogList container" style="padding-top: 10px;">
+			<div class="mostRededBlogDiv">
+				<div style="text-align: center;">
+				</div>
+				<div>
+					<h1></h1>
+				</div>
+			</div>
+			<div class="mostRededBlogDiv">Blog Two</div>
+			<div class="mostRededBlogDiv">Blog Three</div>
+			<div class="mostRededBlogDiv">Blog Four</div>
+		</div>
+	</div> -->
+
+
+	<footer
+		style="background-color: black; color: white; text-align: center;">
+		<div>
+			<div>
+				<img src="<c:url value="/resources/static/img/homePageImg/logo.png"/>" alt="M work Logo" width="20%" style="border-radius: 50%;">
+				<h4>M-Work</h4>
+				<p>We are provide the best content for reading.</p>
+
+			</div>
+			<div>
+				<h4>Our Service</h4>
+				<a href="#">Blogging</a><br> <a href="#">M-Work Jobs</a>
+			</div>
+			<div>
+				<h4>Contact Info</h4>
+				<p>You can connet us on rameshwarban000@gmail.com</p>
+				<p></p>
+			</div>
+		</div>
+		<div>
+			<div>
+				<p>
+					&copy; <span id="currentYear"></span> M-Work. All Rights Reserved.
+					| <a href="/privacyPolicy.html">Privacy Policy</a> | <a
+						href="/termsAndPolicies.html">Terms of Use</a>
+				</p>
+			</div>
+
+			<script>
+				document.getElementById("currentYear").textContent = new Date()
+						.getFullYear();
+			</script>
+
+		</div>
+
+
+	</footer>
+
+
+
+
 </body>
 </html>

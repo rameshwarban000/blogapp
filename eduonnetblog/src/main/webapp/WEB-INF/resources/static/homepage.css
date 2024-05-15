@@ -1,0 +1,164 @@
+body {
+	font-size: 18px;
+}
+
+.mainIntroDiv {
+	display: flex;
+	justify-content: space-between;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.textOfIntro {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	font-family: "Protest Strike", sans-serif;
+	font-weight: 200px;
+	font-style: normal;
+}
+
+.infodivs {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5%;
+	border-radius: 6px;
+	margin-top: 1%;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	transition: 0.3s ease-in-out;
+
+}
+
+.infodivs:hover {
+	box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.categoriesIntoDiv {
+	display: flex;
+	justify-content: space-between;
+	gap: 1%;
+	width: 100%;
+	overflow: auto;
+	margin-top: 1%;
+}
+
+.categoryLablesMainDiv {
+	display: flex;
+	justify-content: center;
+}
+
+.categoryLables {
+	display: flex;
+	margin: 1%;
+	width: 600px;
+	overflow: auto;
+	justify-content: center;
+}
+
+.lableDiv {
+	height: 200px;
+	width: 200px;
+	border: 1px solid black;
+	border-radius: 6px;
+	margin: 1%;
+}
+
+.infoImg {
+	transition: 0.2s ease-in-out;
+	border-radius: 6px;
+}
+
+.infoImg:hover {
+	transform: scale(1.1);
+}
+
+.headTitle {
+	font-weight: 600;
+	color: rgb(155, 16, 236);
+	font-size: revert;
+}
+
+.comNameTitle {
+	font-weight: 600;
+}
+
+.contentInfoDiv {
+	background-color: #d3d3d321;
+	padding: 3%;
+	border-radius: 6px;
+	height: auto;
+	min-width: 30%;
+	max-width: 300px;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.contentInfoDiv:hover {
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.contentInfoTitle {
+	font-size: medium;
+	color: #019bfc;
+}
+
+.contentInfoInnerDiv {
+	margin-bottom: 10px;
+}
+
+.infodivsInnderDivImg {
+	width: 100%;
+}
+
+.infodivsMain {
+	margin-top: 30px;
+}
+
+/*                      Blog list css                       */
+.mostRededBlogDiv {
+	width: 100%;
+	border-radius: 6px;
+	background-color: lightblue;
+	height: 200px;
+	margin-bottom: 10px;
+}
+
+/* Mobile devices (portrait and landscape) */
+@media only screen and (max-width: 767px) {
+	body {
+		font-size: 12px;
+	}
+}
+
+/* Tablets and iPads (portrait and landscape) */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+	body {
+		font-size: 12px;
+	}
+}
+
+/* Small laptops and desktops */
+@media only screen and (min-width: 1024px) and (max-width: 1365px) {
+	body {
+		font-size: 14px;
+	}
+
+}
+
+/* Large laptops and desktops */
+/* My Laptop screen */
+@media only screen and (min-width: 1366px) and (max-width: 1919px) {
+	body {
+		font-size: 22px;
+	}
+}
+
+/* Extra large laptops and desktops */
+@media only screen and (min-width: 1920px) {
+
+	/* CSS for extra large laptops and desktops goes here */
+	body {
+		font-size: 22px;
+	}
+}

@@ -9,7 +9,7 @@ import com.eduonnetblog.entities.Description;
 
 public class BlogOrNewsReqObj {
 
-	
+	private Long id;
 	private String title;
 	private Long category;
 	private Long subCategory;
@@ -50,6 +50,7 @@ public class BlogOrNewsReqObj {
 	public static BlogOrNews getEntity(BlogOrNewsReqObj reqObj) {
 		if(reqObj != null) {
 			BlogOrNews entity = new BlogOrNews();
+			if(reqObj.getId() != null && reqObj.getId() != 0) entity.setId(reqObj.getId());
 			if(reqObj.getCategory() != null ) entity.setCategory(reqObj.getCategory());
 			if(reqObj.getSubCategory() != null) entity.setSubCategory(reqObj.getSubCategory());
 			if(StringUtils.hasText(reqObj.getTitle())) entity.setTitle(reqObj.getTitle());
@@ -58,5 +59,12 @@ public class BlogOrNewsReqObj {
 		}
 		return null;
 	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	
 }

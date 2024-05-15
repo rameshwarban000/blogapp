@@ -40,4 +40,6 @@ public interface BlogAndNewsService {
 	public List<Image> getImagesByIds(List<Long> imageIds);
 
 	public List<Description> getDescriptionsByBlogId(long parseLong);
+
+	public List<BlogOrNews> getAllBlockAndNews(Long pageNumber, Long pageSize);
 }

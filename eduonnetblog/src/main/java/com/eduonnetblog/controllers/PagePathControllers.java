@@ -1,5 +1,6 @@
 package com.eduonnetblog.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,11 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,6 +23,7 @@ import com.eduonnetblog.entities.BlogOrNews;
 import com.eduonnetblog.entities.Description;
 import com.eduonnetblog.entities.Image;
 import com.eduonnetblog.services.BlogAndNewsService;
+import com.eduonnetblog.utilities.CommonConstansts;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -138,6 +143,7 @@ public class PagePathControllers {
 				jsonObject.put("title", desc.getTitle());
 				jsonObject.put("date", desc.getDate());
 				jsonObject.put("imageId", desc.getImageId());
+				jsonObject.put("blogId", desc.getBlogId());
 				jsonArray.add(jsonObject);
 			}
 		}
@@ -241,6 +247,29 @@ public class PagePathControllers {
 			return entityJsonArray;
 		}
 		return null;
+	}
+	
+	@GetMapping("/manageBlocks")
+	public String getAllBlock(HttpServletResponse response, @RequestBody JSONObject requestObject) throws IOException {
+		JSONObject jsonObject = new JSONObject();
+
+		Long pageNumber = requestObject.getLong("pageNumber");
+		Long pageSize = requestObject.getLong("pageSize");
+		if (pageNumber == null || pageNumber == 0) {
+			throw new IllegalArgumentException("Page number should not be null, empty or zero!");
+		}
+		if (pageSize == null || pageSize == 0) {
+			throw new IllegalArgumentException("Page size should not be null, empty or zere!");
+		}
+		List<BlogOrNews> blogOrNewsList = blogAndNewsService.getAllBlockAndNews(pageNumber, pageSize);
+
+		if (blogOrNewsList == null) {
+			throw new IllegalArgumentException("Rocords not found!");
+		}
+		jsonObject.put(CommonConstansts.STATUS, true);
+		jsonObject.put(CommonConstansts.DATA, blogOrNewsList);
+
+		return "";
 	}
 
 }

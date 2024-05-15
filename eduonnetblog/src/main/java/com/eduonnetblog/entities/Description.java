@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +17,7 @@ public class Description {
 	
 	private String title;
 	
-	 @Column(name = "description", length = 4000) 
+	@Lob
 	private String description;
 	
 	private Long blogId;

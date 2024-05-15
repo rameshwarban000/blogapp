@@ -144,4 +144,11 @@ public class BlogAndNewsServiceImpl implements BlogAndNewsService{
 	public List<Description> getDescriptionsByBlogId(long blogId) {
 		return blogOrNewsDao.getDescriptionsBYBlogId(blogId);
 	}
+
+	@Override
+	@Transactional
+	public List<BlogOrNews> getAllBlockAndNews(Long pageNumber, Long pageSize) {
+		
+		return blogOrNewsDao.getAllBlockAndNews(pageNumber, pageSize);
+	}
 }

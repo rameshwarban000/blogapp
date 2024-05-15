@@ -62,8 +62,9 @@ function saveBlogOrNews() {
 
 	// description data
 	let descriptionTitle = $(`#descriptionTitle`).val();
-	let descriptionText = tinymce.get("descriptionText").getContent();
-	
+
+	let descriptionText = tinymce.get("floatingTextarea").getContent();
+
 
 	if (validationBlogForm(title, type, descriptionText)) {
 		let descriptions = [{
@@ -112,12 +113,12 @@ function changeSubCategory(){
 	}
 }
 
-function uploadImage() {
-	var form = $('#uploadForm')[0];
+function uploadImage(formId, messageId,imagePreviewContainerId, previewImgId) {
+	var form = $('#'+formId)[0];
 
 	// Create an FormData object 
 	var data = new FormData(form);
-	uploadImageAjax(data);
+	uploadImageAjax(data, messageId, imagePreviewContainerId, previewImgId);	
 }
 /*****************************Ajaxs**********************************/
 function saveBlogOrNewsAjax(dataObject) {
@@ -133,7 +134,8 @@ function saveBlogOrNewsAjax(dataObject) {
 		success: function(data) {
 			let rdata = JSON.parse(data);
 			if (rdata.status) {
-				alert("data save")
+				alert("data save");
+				clearFormData(rdata.data);
 				//showToster('success', `${dataObject.type} is created Successfully.`, "Account Created Successfully.", 5, 'right');
 			} else {
 				alert("Fail to save data")
@@ -143,7 +145,14 @@ function saveBlogOrNewsAjax(dataObject) {
 	});
 }
 
-function uploadImageAjax(data) {
+function clearFormData(blogId){
+	$(`.afterSavingDataDiv`).show();
+	$(`#blogLink`).attr('href', '/eduonnetblog/blogDetails/'+blogId);
+	
+}
+
+
+function uploadImageAjax(data, messageId,imagePreviewContainerId, previewImgId) {
 	$.ajax({
 		url: uploadImageURL,
 		type: 'POST',
@@ -154,7 +163,7 @@ function uploadImageAjax(data) {
 		success: function(data) {
 			if (data.status) {
 				localCache.imageId = data.data.id;
-				$('#message').html('File uploaded successfully!');
+				$('#'+messageId).html('File uploaded successfully!');
 				alert("Image is uploaded Successfully");
 				var byteData = data.data.data;
 				// Convert byte array to Blob
@@ -163,12 +172,12 @@ function uploadImageAjax(data) {
 						type: 'image/png'
 					});
 				// Create an image element
-				var image = document.getElementById('uploadedImage');
+				var image = document.getElementById(previewImgId);
 				// Set the source of the image to the Blob URL
 				image.src = URL.createObjectURL(blob);
-				$('#uploadedImageContainer').show();
+				$('#'+imagePreviewContainerId).show();
 			} else {
-				$('#message').html('Error uploading file: ' + data.errorMessage);
+				$('#'+messageId).html('Error uploading file: ' + data.errorMessage);
 			}
 		},
 		error: function(xhr, status, error) {
@@ -176,3 +185,54 @@ function uploadImageAjax(data) {
 		}
 	});
 }
+
+let descriptionCount = 1;
+function addExtraDescrFields(){
+
+// Description Title
+	let descriptionTitleDiv = $(`<div class="form-floating mb-3"></div>`);
+	let descriptionTitleInput = $(`<input type="text" class="form-control" id="descriptionTitle_${descriptionCount}">
+									<label for="descriptionTitle_${descriptionCount}" ></label>`);
+
+	descriptionTitleDiv.append(descriptionTitleInput);
+	$('.descriptionList').append(descriptionTitleDiv);
+	
+// Description Detials
+	let descriptionDetailsDiv = $('<div class="form-floating"></div>');
+	let descriptionTextArea = $(`<div class="form-control" placeholder="Description Details" id="floatingTextarea_${descriptionCount}"></div>`);
+	descriptionDetailsDiv.append(descriptionTextArea);
+	$('.descriptionList').append(descriptionDetailsDiv)
+	
+// description Detials text Area initlization
+	initTinyTextEditor('floatingTextarea_'+descriptionCount);
+// Description Image 
+
+	let mainImagediv = $('<div style="margin-top: 10px;"></div>');
+	$('.descriptionList').append(mainImagediv);
+	
+	let imgForm = $(`<form id="uploadForm_${descriptionCount}" class="formImg" enctype="multipart/form-data"></form>`);
+	mainImagediv.append(imgForm);
+	
+	let imgFormInput = $(`<input class="form-control form-control-lg" name="file" id="file_${descriptionCount}" type="file" accept="image/*" required >`);
+	imgForm.append(imgFormInput);
+	
+	let imgFormUploadBtn = $(`<button class="btn btn-info" style="margin-top: 10px;" onclick="uploadImage('uploadForm_${descriptionCount}', 'message_${descriptionCount}', 'uploadedImageContainer_${descriptionCount}', 'uploadedImage_${descriptionCount}')"><i class="bi bi-cloud-upload-fill"></i> Upload Image </button>`);
+	mainImagediv.append(imgFormUploadBtn);
+	
+	let uploadImgMessageDiv = $(`<div id="message_${descriptionCount}"></div>`);
+	mainImagediv.append(uploadImgMessageDiv);
+	
+	let imgPreviewDiv = $(`<div id="uploadedImageContainer_${descriptionCount}" style="display: none; text-align: center;"> <img id="uploadedImage_${descriptionCount}" alt="Uploaded Image"></div>`);
+	mainImagediv.append(imgPreviewDiv);
+
+}
+
+function initTinyTextEditor(textAreaId){
+	
+		 tinymce.init({
+			    selector: '#'+textAreaId,
+			    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
+			    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+			  });
+}
+

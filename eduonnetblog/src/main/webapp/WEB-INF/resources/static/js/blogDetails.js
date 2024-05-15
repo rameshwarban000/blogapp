@@ -131,7 +131,6 @@ function listenBlog(){
 
 function renderBlogDetails(entity, descriptions, images){
 	if(entity != undefined && entity != null){
-		console.log("Blog rendering start...");
 		$(`#blogTitle`).html(entity.title);
 		let date = formatDateFromMilliseconds(entity.date);
 		$(`#blogDate`).html(date);
@@ -154,6 +153,86 @@ function renderBlogDetails(entity, descriptions, images){
 				let p = $(`<p>${description.description}</p>`);
 				descriptionDetails.append(p);
 			}
+		}
+	}
+}
+
+
+function renderRecomendedBlogList(blogList, recDescList, recImgList) {
+	if (blogList != undefined && blogList != null && blogList.length > 0) {
+		for (let blog of blogList) {
+			let blogsMainDiv = $('.topics');
+			// card
+			let cardBlogDiv = $(`<div class="card" id="blog_${blog.id}" style="width: 18rem;" ></div>`);
+			blogsMainDiv.append(cardBlogDiv);
+
+			let imageSrc = "";
+
+			if (recDescList != undefined && recDescList.length > 0) {
+
+				let descList = recDescList.filter(desc => desc.blogId == blog.id);
+
+
+
+				if (descList != undefined && descList.length > 0 ) {
+					
+					let descriptionObj = descList[0];
+					
+					if (recImgList != undefined && recImgList.length > 0) {
+						let image = recImgList.find(img => img.id == descriptionObj.imageId);
+						if (image != undefined) {
+							imageSrc = getImageURLUsingByteData(image.data)
+						}
+					}
+				}
+				//Image
+				let cardImage = $(`<img  class="card-img-top blogImage" alt="..." >`);
+				cardImage.attr('src', imageSrc);
+				cardBlogDiv.append(cardImage);
+
+				// Card body
+				let cardBody = $(`<div class="card-body"></div>`);
+				cardBlogDiv.append(cardBody);
+
+				// card body date 
+				const formattedDate = formatDateFromMilliseconds(blog.date);
+				let bodyDate = $(`<span title="Date"><i class="bi bi-calendar"></i> : ${formattedDate}</span>`);
+				cardBody.append(bodyDate);
+
+
+				//card body title 
+				let bodyTitle = $(`<a href="/eduonnetblog/blogDetails/${blog.id}" class="blogDetailLink"><h5 class="card-title" title="Title">${blog.title}</h5></a>`);
+				cardBody.append(bodyTitle);
+
+
+				// card body context 
+				let bodyContext = $(`<div class="blogContext">
+					<p class="card-text" title="context">${descList[0].title}</p>
+				</div>`)
+				cardBody.append(bodyContext);
+
+				let socialBtnDiv = $(`<div class="socialBtnDiv">
+					<div class="blogBtnDiv" title="like">
+						<button class="btn btnBlog">
+							<i class="bi bi-hand-thumbs-up"></i>
+						</button>
+					</div>
+
+					<div class="blogBtnDiv" title="unlike">
+						<button class="btn btnBlog">
+							<i class="bi bi-hand-thumbs-down"></i>
+						</button>
+					</div>
+
+					<div class="blogBtnDiv" title="share">
+						<button class="btn btnBlog">
+							<i class="bi bi-share"></i>
+						</button>
+					</div>
+				</div>`);
+				cardBody.append(socialBtnDiv);
+			}
+
 		}
 	}
 }
