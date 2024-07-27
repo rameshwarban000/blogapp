@@ -7,6 +7,7 @@
 <html>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="<c:url value='/resources/static/img/homePageImg/logo.png'/>" type="image/x-icon">
 
 <!-- bootstrap css and js  -->
 <link rel="stylesheet"
@@ -27,15 +28,11 @@
 
 <script type="text/javascript">
 
-	$(document).ready(function() {
-
-	})
 </script>
 <title>Dashboard</title>
 
 <body>
-
-	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+	<nav class="navbar navbar-expand-lg bg-body-tertiary hederNavBar">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">M-Work Blog</a>
 			<button class="navbar-toggler" type="button"
@@ -47,8 +44,8 @@
 			<div class="collapse navbar-collapse" id="navbarText">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">About Us</a></li>
-					<li class="nav-item"><a class="nav-link active" href="#">Contact
+						aria-current="page" href="#"> <i class="bi bi-person-circle"></i> About Us</a></li>
+					<li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-telephone-plus-fill"></i> Contact
 							Us</a></li>
 				</ul>
 			</div>
@@ -57,7 +54,7 @@
 
 	<div class="mainIntroDiv">
 		<div class="textOfIntro" style="width: 50%;">
-			<h2 class="headTitle">Read the Qulity Content</h2>
+			<h2 class="headTitle">Read the Quality Content</h2>
 			<p>We give you the best content for consume and learn.</p>
 		</div>
 		<div style="width: 50%;">
@@ -66,13 +63,13 @@
 	</div>
 	<div style="text-align: center; padding-top: 50px;">
 
-		<h2 style="font-size: medium;">Best Content for your fevrate
+		<h2 style="font-size: medium;">Best Content for your favorite
 			Content</h2>
 		<div style="display: flex; justify-content: center; gap: 10px;">
 			<div class="contentInfoDiv">
 				<div class="contentInfoInnerDiv">
-					<span class="contentInfoTitle">Based On Reserch</span><br> <span>All
-						content wrote on reserch.</span>
+					<span class="contentInfoTitle">Based On Research</span><br> <span>All
+						content wrote on research.</span>
 				</div>
 				<div>
 					<img class="infoImg" src="<c:url value="/resources/static/img/homePageImg/reserch.jpg" />" alt="..." width="100%">
@@ -80,8 +77,8 @@
 			</div>
 			<div class="contentInfoDiv">
 				<div class="contentInfoInnerDiv">
-					<span class="contentInfoTitle">Best Qulity</span><br> <span>Best
-						Quilty Images for better Understanding</span>
+					<span class="contentInfoTitle">Best Quality</span><br> <span>Best
+						Quality Images for better Understanding</span>
 				</div>
 				<div>
 					<img class="infoImg" src="<c:url value="/resources/static/img/homePageImg/quility.jpg"/>" alt="..." width="100%"
@@ -90,7 +87,7 @@
 			</div>
 			<div class="contentInfoDiv">
 				<div class="contentInfoInnerDiv">
-					<span class="contentInfoTitle">Reach Ui/UX</span><br> <span>Best
+					<span class="contentInfoTitle">Reach UI/UX</span><br> <span>Best
 						UI for only reading not any confusion</span>
 				</div>
 				<div>
@@ -137,7 +134,7 @@
 				<h4>
 					<a href="/eduonnetblog/categoryWiseBlogs/3"><i class="bi bi-cpu-fill"></i> Technology </a>
 				</h4>
-				<p>Embrace Tomorrow's Tech Today: Stay Ahead with Insights into
+				<p>Embrace Tomorrow's Teach Today: Stay Ahead with Insights into
 					the Future of Technology</p>
 			</div>
 			<div class="infodivsInnderDivImg">
@@ -243,7 +240,7 @@
 			</div>
 			<div>
 				<h4>Contact Info</h4>
-				<p>You can connet us on rameshwarban000@gmail.com</p>
+				<p>You can connect us on rameshwarban000@gmail.com</p>
 				<p></p>
 			</div>
 		</div>
@@ -251,23 +248,15 @@
 			<div>
 				<p>
 					&copy; <span id="currentYear"></span> M-Work. All Rights Reserved.
-					| <a href="/privacyPolicy.html">Privacy Policy</a> | <a
-						href="/termsAndPolicies.html">Terms of Use</a>
+					| <a href="<c:url value="/privacyPolicy"/>">Privacy Policy</a> | <a
+						href="<c:url value="/termAndPolicy"/>">Terms of Use</a>
 				</p>
 			</div>
-
 			<script>
 				document.getElementById("currentYear").textContent = new Date()
 						.getFullYear();
 			</script>
-
 		</div>
-
-
 	</footer>
-
-
-
-
 </body>
 </html>

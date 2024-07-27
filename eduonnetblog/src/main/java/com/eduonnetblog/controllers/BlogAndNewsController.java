@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -119,23 +120,37 @@ public class BlogAndNewsController {
 		MWorkBlogUtility.writeDatainResponce(response, jsonObject.toString());
 	}
 
-	@RequestMapping(value = "/deleteBlogOrNew", method = RequestMethod.POST)
-	public void deleteEntity(HttpServletResponse response, @PathVariable DeleteEntityReqObj reqObj) throws IOException {
+	@RequestMapping(value = "/deleteBlogOrNews", method = RequestMethod.POST)
+	public void deleteEntity(HttpServletResponse response, @RequestBody JSONObject requestBody) throws IOException {
 
+		String password = requestBody.getString("password");
+		String blogOrNewId = requestBody.getString("blogOrNewId");
 		JSONObject jsonObject = new JSONObject();
 		try {
-			// delete all description
-			blogAndNewsService.deleteBlogORNewsDescriptions(reqObj.getBlogOrNewsId().toString());
-
-			// delete entity
-			blogAndNewsService.deleteEntityById(reqObj.getBlogOrNewsId().toString());
-
-			jsonObject.put(CommonConstansts.STATUS, true);
+			if(StringUtils.hasText(password) && validatePassword(password)) {
+				// delete all description
+				blogAndNewsService.deleteBlogORNewsDescriptions(blogOrNewId);
+				
+				// delete entity
+				blogAndNewsService.deleteEntityById(blogOrNewId);
+				
+				jsonObject.put(CommonConstansts.STATUS, true);
+			}else {
+				jsonObject.put(CommonConstansts.STATUS, false);
+				jsonObject.put(CommonConstansts.ERROR_MESSAGE, "Password Varification Faild");
+			}
 
 		} catch (Exception e) {
 			jsonObject = MWorkBlogUtility.handleException(jsonObject, e);
 		}
 		MWorkBlogUtility.writeDatainResponce(response, jsonObject.toString());
+	}
+
+	private boolean validatePassword(String password) {
+		if (password.equals("L4mGU`6_z]b59VKu$CagyY")) {
+			return true;
+		}
+		return false;
 	}
 
 	@RequestMapping(value = "/deleteDesc/{entityId}", method = RequestMethod.GET)
@@ -189,5 +204,4 @@ public class BlogAndNewsController {
 	}
 
 
-	
 }

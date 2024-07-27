@@ -1,5 +1,6 @@
 package com.eduonnetblog.daos;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
@@ -142,21 +144,23 @@ public class BlogOrNewsDao {
 	                if (!descriptionIds.isEmpty()) {
 	                    // Delete descriptions
 	                    String hqlDeleteDescriptions = "DELETE FROM Description d WHERE d.id IN (:descriptionIds)";
-	                    int deletedDescriptionCount = hibernateTemplate.bulkUpdate(hqlDeleteDescriptions,
-	                            Collections.singletonMap("descriptionIds", descriptionIds));
-	                    System.out.println("Deleted description count: " + deletedDescriptionCount);
+	                  org.hibernate.Query query = hibernateTemplate.getSessionFactory().getCurrentSession().createSQLQuery(hqlDeleteDescriptions);
+	                  query.setParameterList("descriptionIds", descriptionIds);
+	                  long count = query.executeUpdate();
+	                    System.out.println("Deleted description count: " + count);
 	                }
 
 	                if (!imageIds.isEmpty()) {
 	                    // Delete images
 	                    String hqlDeleteImages = "DELETE FROM Image i WHERE i.id IN (:imageIds)";
-	                    int deletedImageCount = hibernateTemplate.bulkUpdate(hqlDeleteImages,
-	                            Collections.singletonMap("imageIds", imageIds));
+	                    org.hibernate.Query query = hibernateTemplate.getSessionFactory().getCurrentSession().createSQLQuery(hqlDeleteImages);
+	                    query.setParameterList("imageIds", imageIds);
+	                    long deletedImageCount = query.executeUpdate();
 	                    System.out.println("Deleted image count: " + deletedImageCount);
 	                }
 	            } catch (Exception e) {
+	            	System.out.println("Descriptions not found to delete.");
 	                e.printStackTrace();
-	                // Handle exceptions
 	            }
 	        } else {
 	            System.out.println("Descriptions not found to delete.");
@@ -165,10 +169,10 @@ public class BlogOrNewsDao {
 
 	public void deleteEntityById(String entityId) {
 	    String hqlDeleteImages = "DELETE FROM BlogOrNews i WHERE i.id = (:entityId)";
-        @SuppressWarnings("deprecation")
-		int deletedEntityCount = hibernateTemplate.bulkUpdate(hqlDeleteImages,
-                Collections.singletonMap("entityId", Long.parseLong(entityId)));
-        System.out.println("Deleted entity count: " + deletedEntityCount);
+		org.hibernate.Query query = hibernateTemplate.getSessionFactory().getCurrentSession().createSQLQuery(hqlDeleteImages);
+		query.setParameter("entityId", entityId);
+		long count = query.executeUpdate();
+        System.out.println("Deleted entity count: " + count);
 	}
 
 	public void deleteDescriptionAndImageById(String descriptionId) {
@@ -211,10 +215,34 @@ public class BlogOrNewsDao {
 	}
 
 	public List<BlogOrNews> getAllBlockAndNews(Long pageNumber, Long pageSize) {
-		    Session session = hibernateTemplate.getSessionFactory().getCurrentSession();
-		    org.hibernate.Query<BlogOrNews> query = session.createQuery("FROM Entity", BlogOrNews.class);
-		    query.setFirstResult((pageNumber - 1) * pageSize);
-		    query.setMaxResults(pageSize);
-		    return query.getResultList();
+			String  sqlQuery = "select id, category , date , subCategory, title, type from blogornews LIMIT "+pageSize;
+		    NativeQuery query = hibernateTemplate.getSessionFactory().getCurrentSession().createSQLQuery(sqlQuery);
+		    List<Object[]> results =  query.list();
+		    if(results != null && !results.isEmpty()) {
+		    	List<BlogOrNews> blogOrNewsList = new ArrayList<BlogOrNews>();
+		    	for(Object[] result : results) {
+		    		BlogOrNews  blogOrNews = new BlogOrNews();
+		    		
+		    		BigInteger bigInteger = (BigInteger) result[0];
+		    		blogOrNews.setId(bigInteger.longValue());
+		    		
+		    		BigInteger category  = (BigInteger) result[1];
+		    		blogOrNews.setCategory(category.longValue());
+		    		
+		    		BigInteger date  = (BigInteger) result[2];
+		    		blogOrNews.setDate(date.longValue());
+		    		
+		    		BigInteger subCategory  = (BigInteger) result[3];
+		    		blogOrNews.setSubCategory(subCategory.longValue());
+		    		
+		    		blogOrNews.setTitle((String) result[4]);
+		    		
+		    		blogOrNews.setType((int) result[5]);
+		    		
+		    		blogOrNewsList.add(blogOrNews);
+		    	}
+		    	return blogOrNewsList;
+		    }
+		    return 	null;
 	}
 }

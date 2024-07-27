@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page isELIgnored="false"%>
 <!-- for spring language tag for use doller sign -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="<c:url value='/resources/static/img/homePageImg/logo.png'/>" type="image/x-icon">
 
 <!-- bootstrap css and js  -->
 <link rel="stylesheet"
@@ -52,7 +52,7 @@ $(document).ready(function(){
 <body>
 
 <!-- Menu bar   -->
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary hederNavBar">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">M-Work Blog</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,60 +61,60 @@ $(document).ready(function(){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-	        <a href="<c:url value="/homePage/1"/>">
-	        	<button class="btn"> Home</button>
+	        <a href="<c:url value="/"/>">
+	        	<button class="btn"><i class="bi bi-house-door-fill"></i> Home</button>
 	        </a>
         </li>
         <li class="nav-item">
-          <a href="<c:url value="/homePage/1"/>">
-        	<button class="btn" > Education</button>
+          <a href="<c:url value="/categoryWiseBlogs/1"/>">
+        	<button class="btn" > <i class="bi bi-backpack3-fill"></i> Education</button>
          </a>
         </li>
         <li class="nav-item">
-          <a href="<c:url value="/homePage/2"/>">
-        	<button class="btn" > Technology </button>
+          <a href="<c:url value="/categoryWiseBlogs/2"/>">
+        	<button class="btn" > <i class="bi bi-motherboard-fill"></i> Technology </button>
          </a>
         </li>
         <li class="nav-item">
-          <a href="<c:url value="/homePage/3"/>">
-        	<button class="btn" > Programming</button>
+          <a href="<c:url value="/categoryWiseBlogs/3"/>">
+        	<button class="btn" > <i class="bi bi-code-slash"></i> Programming</button>
          </a>
         </li>
         <li class="nav-item">
-          <a href="<c:url value="/homePage/4"/>">
-        	<button class="btn" > Temples</button>
+          <a href="<c:url value="/categoryWiseBlogs/4"/>">
+        	<button class="btn" > <i class="bi bi-bank2"></i> Temples</button>
          </a>
         </li>
         <li class="nav-item">
-          <a href="<c:url value="/homePage/5"/>">
-        	<button class="btn" > Places</button>
+          <a href="<c:url value="/categoryWiseBlogs/5"/>">
+        	<button class="btn" > <i class="bi bi-geo-alt-fill"></i> Places</button>
          </a>
         </li>
         <li class="nav-item">
-          <a href="<c:url value="/homePage/6"/>">
-        	<button class="btn" > Food </button>
+          <a href="<c:url value="/categoryWiseBlogs/6"/>">
+        	<button class="btn" > <i class="bi bi-egg-fried"></i> Food </button>
          </a>
         </li>
         <li class="nav-item">
-         <a href="<c:url value="/homePage/7"/>">
-        	<button class="btn" > Health</button>
+         <a href="<c:url value="/categoryWiseBlogs/7"/>">
+        	<button class="btn" > <i class="bi bi-lungs-fill"></i> Health</button>
          </a>
         </li>
         <li class="nav-item">
-         <a href="<c:url value="/homePage/8"/>">
-        	<button class="btn" > Job</button>
+         <a href="<c:url value="/categoryWiseBlogs/8"/>">
+        	<button class="btn" > <i class="bi bi-briefcase-fill"></i> Job</button>
          </a>
         </li>
         <li class="nav-item">
-         <a href="<c:url value="/homePage/9"/>">
-        	<button class="btn" > Colleges</button>
+         <a href="<c:url value="/categoryWiseBlogs/9"/>">
+        	<button class="btn" > <i class="bi bi-backpack4-fill"></i> Colleges</button>
          </a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
+   <!--    <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      </form> -->
     </div>
   </div>
 </nav>
@@ -157,13 +157,13 @@ $(document).ready(function(){
 		<div class="container">
 			<div class="footer-content">
 				<div class="footer-links">
-					<a href="#">Home</a> <a href="<c:url value="/aboutme"/>">About</a>
-					<a href="#">Contact</a> <a href="#">Products</a>
+					<a href="<c:url value="/"/>">Home</a> <%-- <a href="<c:url value="/aboutme"/>">About</a>
+					<a href="#">Contact</a> <a href="#">Products</a> --%>
 				</div>
-				<div class="like-buttons">
+			<!-- 	<div class="like-buttons">
 					<button class="like-button">Like</button>
 					<button class="like-button">Love</button>
-				</div>
+				</div> -->
 			</div>
 			<div class="copyright">&copy; 2024 Your Blog. All rightsre
 				served.</div>

@@ -8,6 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="<c:url value='/resources/static/img/homePageImg/logo.png'/>" type="image/x-icon">
 
 <!-- bootstrap css and js  -->
 <link rel="stylesheet"
@@ -29,40 +30,11 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
-<!-- page css -->
+<!-- page js And css -->
 <script type="text/javascript"
 	src="<c:url value="/resources/static/createblog.js"/>"></script>
-
-<style type="text/css">
-#uploadedImageContainer img {
-	width: 200px;
-}
-
-.afterSavingDataDiv{
-	position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #80808042;
-    z-index: 100;
-}
-.messageBlog{
-	width: 50%;
-    height: 50%;
-    background-color: white;
-    padding: 2%;
-    border-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    text-align: center;
-}
-.formImg{
-	margin-bottom: 10px;
-}
-</style>
+<link rel="stylesheet"
+	href="<c:url value="/resources/static/css/createBlogOrNes.css"/>">
 
 <script type="text/javascript">
 	var saveBlogOrNewsURL = '<c:url value="/saveblogornews"/>';
@@ -79,9 +51,9 @@
 <body>
 
 	<div class="card">
-		<div class="card-header">
+		<div class="card-header" id="navBarDiv">
 			<h4>M-Work Blog</h4>
-			<p>Add Blog or news</p>
+			<span>Add Blog or news</span><a href="<c:url value="/manageBlocks" />"> <button class="btn btn-info" >Manage Blogs OR News </button> </a>
 		</div>
 		<div class="container" style="margin-top: 10px;">
 			<div class="form-floating mb-3">

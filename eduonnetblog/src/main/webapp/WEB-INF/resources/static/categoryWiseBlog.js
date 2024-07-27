@@ -111,24 +111,22 @@ function renderBlogList(blogList, descWiseImages) {
 
 
 			let socialBtnDiv = $(`<div class="socialBtnDiv">
-					<div class="blogBtnDiv" title="like">
-						<button class="btn btnBlog">
-							<i class="bi bi-hand-thumbs-up"></i>
-						</button>
-					</div>
-
-					<div class="blogBtnDiv" title="unlike">
-						<button class="btn btnBlog">
-							<i class="bi bi-hand-thumbs-down"></i>
-						</button>
-					</div>
-
 					<div class="blogBtnDiv" title="share">
 						<button class="btn btnBlog">
 							<i class="bi bi-share"></i>
 						</button>
 					</div>
 				</div>`);
+				/*<div class="blogBtnDiv" title="like">
+						<button class="btn btnBlog">
+							<i class="bi bi-hand-thumbs-up"></i>
+						</button>
+					</div>*/
+						/*<div class="blogBtnDiv" title="unlike">
+						<button class="btn btnBlog">
+							<i class="bi bi-hand-thumbs-down"></i>
+						</button>
+					</div>*/
 			cardBody.append(socialBtnDiv);
 		}
 	}

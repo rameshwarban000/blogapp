@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page isELIgnored="false"%>
 <!-- for spring language tag for use doller sign -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="<c:url value='/resources/static/img/homePageImg/logo.png'/>" type="image/x-icon">
 
 <!-- bootstrap css and js  -->
 <link rel="stylesheet"
@@ -47,7 +47,7 @@ var images = eval(${images});
 var recBlogList = eval(${recBlogList});
 var recDescList = eval(${recDescList});
 var recImgList = eval(${recImgList});
-
+var pageURL = `<c:url value="/blogDetails/${entity.id}"/>`;
 $(document).ready(function(){
 	
 	// render blog details
@@ -76,31 +76,49 @@ $(document).ready(function(){
       <div class="navbar-nav">
         
 		<div class="nav-link">
+		<a href="<c:url value='/categoryWiseBlogs/1'/>" >
 			<button class="menuBtn" onclick=""><i class="bi bi-backpack2-fill"></i> Education</button>
+		</a>
 		</div>
 		<div class="nav-link">
+		<a href="<c:url value='/categoryWiseBlogs/2'/>" >
 			<button class="menuBtn" onclick=""><i class="bi bi-motherboard-fill"></i> Technology</button>
+		</a>
 		</div>
 		<div class="nav-link">
+		<a href="<c:url value='/categoryWiseBlogs/3'/>">
 			<button class="menuBtn" onclick=""><i class="bi bi-code-slash"></i> Programming</button>
+		</a>
 		</div>
 		<div class="nav-link">
+		<a href="<c:url value='/categoryWiseBlogs/4'/>">
 			<button class="menuBtn" onclick=""> <i class="bi bi-bank"></i> Temples</button>
+		</a>
 		</div>
 		<div class="nav-link">
+		<a href="<c:url value='/categoryWiseBlogs/5'/>">
 			<button class="menuBtn" onclick=""><i class="bi bi-geo-alt-fill"></i> Places</button>
+		</a>
 		</div>
 		<div class="nav-link">
+		<a href="<c:url value='/categoryWiseBlogs/6'/>">
 			<button class="menuBtn" onclick=""><i class="bi bi-egg-fried"></i> Food</button>
+		</a>
 		</div>
 		<div class="nav-link">
+		<a href="<c:url value='/categoryWiseBlogs/7'/>">
 			<button class="menuBtn" onclick=""><i class="bi bi-lungs-fill"></i> Health</button>
+		</a>
 		</div>
 		<div class="nav-link">
+		<a href="<c:url value='/categoryWiseBlogs/8'/>">
 			<button class="menuBtn" onclick=""><i class="bi bi-briefcase-fill"></i> Job Preparation</button>
+		</a>
 		</div>
 		<div class="nav-link">
+		<a href="<c:url value='/categoryWiseBlogs/9'/>">
 			<button class="menuBtn" onclick=""><i class="bi bi-bank2"></i> Colleges</button>
+		</a>
 		</div>
       </div>
     </div>
@@ -112,26 +130,26 @@ $(document).ready(function(){
 		<div class="blogButtonsDiv">
 			<!-- Dicriptions buttons  -->
 
-			<div class="blogBtnDiv">
+		<!-- 	<div class="blogBtnDiv">
 				<button class="btn btnBlog">
 					<i class="bi bi-hand-thumbs-up"></i>
-				</button><!-- like -->
+				</button>like
 			</div>
 			<div class="blogBtnDiv">
 				<button class="btn btnBlog">
 					<i class="bi bi-hand-thumbs-down"></i>
-				</button><!-- dislike -->
-			</div>
+				</button>dislike
+			</div> -->
 			<div class="blogBtnDiv">
 				<button class="btn btnBlog" id="shareblogBtn">
 					<i class="bi bi-share"></i>
 				</button><!-- share  -->
 			</div>
-			<div class="blogBtnDiv">
+		<!-- 	<div class="blogBtnDiv">
 				<button class="btn btnBlog">
 					<i class="bi bi-chat-square-text"></i>
-				</button><!-- comment -->
-			</div>
+				</button>comment
+			</div> -->
 			<div class="blogBtnDiv">
 				<button class="btn btnBlog" onclick="listenBlog()">
 					<i class="bi bi-earbuds"></i>
@@ -150,7 +168,7 @@ $(document).ready(function(){
 				<div class="blogDetailsHeader">
 					<label id="blogTitle" title="Blog main title">--</label>
 					<label>
-					 <i class="bi bi-calendar-month-fill"></i><span id="blogDate" title="last updated date">--</span>
+					 <i class="bi bi-calendar-month-fill"></i><span id="blogDate" title="last updated date" style="margin-left: 5px;">--</span>
 					</label>
 				</div>
 
@@ -205,7 +223,7 @@ $(document).ready(function(){
 
 	<div id="shareModal" class="modal" style="display: none;">
 		<div class="modal-content">
-			<span class="close" style="text-align: right;">&times;</span>
+			<span class="close" style="text-align: right;padding-right: 1rem;"><i class="bi bi-x-square-fill"></i></span>
 			<p>Share this blog with blow</p>
 			<div style="text-align: center;">
 
@@ -231,13 +249,14 @@ $(document).ready(function(){
 		<div class="container">
 			<div class="footer-content">
 				<div class="footer-links">
-					<a href="#">Home</a> <a href="<c:url value="/aboutme"/>">About</a>
-					<a href="#">Contact</a> <a href="#">Products</a>
+					<a href="<c:url value="/"/>">Home</a> 
+				<%-- 	<a href="<c:url value="/aboutme"/>">About</a>
+					<a href="#">Contact</a> <a href="#">Products</a> --%>
 				</div>
-				<div class="like-buttons">
+				<!-- <div class="like-buttons">
 					<button class="like-button">Like</button>
 					<button class="like-button">Love</button>
-				</div>
+				</div> -->
 			</div>
 			<div class="copyright">&copy; 2024 Your Blog. All rights
 				reserved.</div>

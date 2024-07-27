@@ -148,7 +148,6 @@ public class BlogAndNewsServiceImpl implements BlogAndNewsService{
 	@Override
 	@Transactional
 	public List<BlogOrNews> getAllBlockAndNews(Long pageNumber, Long pageSize) {
-		
 		return blogOrNewsDao.getAllBlockAndNews(pageNumber, pageSize);
 	}
 }

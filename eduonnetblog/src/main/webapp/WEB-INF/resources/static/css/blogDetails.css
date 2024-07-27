@@ -24,7 +24,10 @@
 .blogBtnDiv {
 	margin: 10px 10px;
 }
-
+.blogDetailsDiv{
+	width: 100%;
+	
+}
 .blogButtonsDiv,
 .blogDetailsDiv {
 	padding-top: 70px;
@@ -79,7 +82,7 @@
 
 .feedbackAndReportDiv {
 	position: absolute;
-	top: 381px;
+	top: 280px;
 	left: 5px;
 	background: white;
 	border-radius: 10px;

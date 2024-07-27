@@ -179,14 +179,12 @@ public class PagePathControllers {
 				List<BlogOrNews> newsList = blogAndNewsService.getNewsByCategory(category);
 				// get Blogs
 				List<BlogOrNews> blogList = blogAndNewsService.getBlogsByCategory(category);
-				
 				List<Long> entityIds = new ArrayList<Long>();
 				if(newsList != null && !newsList.isEmpty()) {
 					for(BlogOrNews news : newsList) {
 						entityIds.add(news.getId());
 					}
 				}
-				
 				if(blogList != null && !blogList.isEmpty()) {
 					for(BlogOrNews blog : blogList) {
 						entityIds.add(blog.getId());
@@ -206,7 +204,6 @@ public class PagePathControllers {
 				request.setAttribute("newsList", newsListObject);
 				request.setAttribute("blogList", blogListObject);
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -250,11 +247,10 @@ public class PagePathControllers {
 	}
 	
 	@GetMapping("/manageBlocks")
-	public String getAllBlock(HttpServletResponse response, @RequestBody JSONObject requestObject) throws IOException {
-		JSONObject jsonObject = new JSONObject();
+	public String getAllBlock(HttpServletRequest request) throws IOException {
 
-		Long pageNumber = requestObject.getLong("pageNumber");
-		Long pageSize = requestObject.getLong("pageSize");
+		Long pageNumber = 1l;
+		Long pageSize = 50l;
 		if (pageNumber == null || pageNumber == 0) {
 			throw new IllegalArgumentException("Page number should not be null, empty or zero!");
 		}
@@ -263,13 +259,23 @@ public class PagePathControllers {
 		}
 		List<BlogOrNews> blogOrNewsList = blogAndNewsService.getAllBlockAndNews(pageNumber, pageSize);
 
-		if (blogOrNewsList == null) {
-			throw new IllegalArgumentException("Rocords not found!");
+		if(blogOrNewsList != null && !blogOrNewsList.isEmpty()) {
+			request.setAttribute("blogsAndNews", new JSONArray().fromObject(blogOrNewsList));
+		}else {
+			request.setAttribute("blogsAndNews", new ArrayList<>());
 		}
-		jsonObject.put(CommonConstansts.STATUS, true);
-		jsonObject.put(CommonConstansts.DATA, blogOrNewsList);
 
-		return "";
+		return "manageBlock";
 	}
-
+	
+	@GetMapping("/privacyPolicy")
+	public String getPrivacyPolicyPage()
+	{
+		return "privacyPolicy";
+	}
+	@GetMapping("/termAndPolicy")
+	public String getTermAndPolicy()
+	{
+		return "termsAndPolicy";
+	}
 }

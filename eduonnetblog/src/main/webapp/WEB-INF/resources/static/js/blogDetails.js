@@ -24,130 +24,132 @@ function showFeedback() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Select the share button
-  var shareButton = document.getElementById('shareblogBtn');
+	// Select the share button
+	var shareButton = document.getElementById('shareblogBtn');
 
-  // Select the modal
-  var shareModal = document.getElementById('shareModal');
+	// Select the modal
+	var shareModal = document.getElementById('shareModal');
 
-  // Select the close button inside the modal
-  var closeButton = document.querySelector('.close');
+	// Select the close button inside the modal
+	var closeButton = document.querySelector('.close');
 
-  // Add a click event listener to the share button
-  shareButton.addEventListener('click', function() {
-    // Show the modal
-    shareModal.style.display = 'block';
-  });
+	// Add a click event listener to the share button
+	shareButton.addEventListener('click', function() {
+		// Show the modal
+		shareModal.style.display = 'block';
+	});
 
-  // Add a click event listener to the close button
-  closeButton.addEventListener('click', function() {
-    // Hide the modal
-    shareModal.style.display = 'none';
-  });
+	// Add a click event listener to the close button
+	closeButton.addEventListener('click', function() {
+		// Hide the modal
+		shareModal.style.display = 'none';
+	});
 
-  // Add a click event listener to the Facebook share button
-  document.getElementById('facebookButton').addEventListener('click', function() {
-    // Replace 'your-blog-url' with the actual URL of your blog post
-    var blogUrl = encodeURIComponent('your-blog-url');
-    var facebookShareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + blogUrl;
-    window.open(facebookShareUrl, 'Facebook Share', 'width=600,height=400');
-  });
+	// Add a click event listener to the Facebook share button
+	document.getElementById('facebookButton').addEventListener('click', function() {
+		// Replace 'your-blog-url' with the actual URL of your blog post
+		var blogUrl = encodeURIComponent(pageURL);
+		var facebookShareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + blogUrl;
+		window.open(facebookShareUrl, 'Facebook Share', 'width=600,height=400');
+	});
 
-  // Add a click event listener to the Twitter share button
-  document.getElementById('twitterButton').addEventListener('click', function() {
-    // Replace 'your-blog-url' with the actual URL of your blog post
-    var blogUrl = encodeURIComponent('your-blog-url');
-    var twitterShareUrl = 'https://twitter.com/intent/tweet?url=' + blogUrl;
-    window.open(twitterShareUrl, 'Twitter Share', 'width=600,height=400');
-  });
-  
-   // Add a click event listener to the WhatsApp share button
-  document.getElementById('whatsappButton').addEventListener('click', function() {
-    // Replace 'your-blog-url' with the actual URL of your blog post
-    var blogUrl = encodeURIComponent('your-blog-url');
-    var whatsappShareUrl = 'https://wa.me/?text=' + blogUrl;
-    window.open(whatsappShareUrl, 'WhatsApp Share', 'width=600,height=400');
-  });
+	// Add a click event listener to the Twitter share button
+	document.getElementById('twitterButton').addEventListener('click', function() {
+		// Replace 'your-blog-url' with the actual URL of your blog post
+		var blogUrl = encodeURIComponent(pageURL);
+		var twitterShareUrl = 'https://twitter.com/intent/tweet?url=' + blogUrl;
+		window.open(twitterShareUrl, 'Twitter Share', 'width=600,height=400');
+	});
 
-  // Add a click event listener to the Instagram share button
-  document.getElementById('instagramButton').addEventListener('click', function() {
-    // Replace 'your-blog-url' with the actual URL of your blog post
-    var blogUrl = encodeURIComponent('your-blog-url');
-    var instagramShareUrl = 'https://www.instagram.com/share?url=' + blogUrl;
-    window.open(instagramShareUrl, 'Instagram Share', 'width=600,height=400');
-  });
-  
-   // Add a click event listener to the Copy Link button
-  document.getElementById('copyLinkButton').addEventListener('click', function() {
-    // Replace 'your-blog-url' with the actual URL of your blog post
-    var blogUrl = 'your-blog-url';
-    
-    // Create a temporary text area element
-    var textArea = document.createElement('textarea');
-    
-    // Set the value of the text area to the blog URL
-    textArea.value = blogUrl;
+	// Add a click event listener to the WhatsApp share button
+	document.getElementById('whatsappButton').addEventListener('click', function() {
+		// Replace 'your-blog-url' with the actual URL of your blog post
+		var blogUrl = encodeURIComponent(pageURL);
+		var whatsappShareUrl = 'https://wa.me/?text=' + blogUrl;
+		window.open(whatsappShareUrl, 'WhatsApp Share', 'width=600,height=400');
+	});
 
-    // Append the text area to the document
-    document.body.appendChild(textArea);
+	// Add a click event listener to the Instagram share button
+	document.getElementById('instagramButton').addEventListener('click', function() {
+		// Replace 'your-blog-url' with the actual URL of your blog post
+		var blogUrl = encodeURIComponent(pageURL);
+		var instagramShareUrl = 'https://www.instagram.com/share?url=' + blogUrl;
+		window.open(instagramShareUrl, 'Instagram Share', 'width=600,height=400');
+	});
 
-    // Select the text inside the text area
-    textArea.select();
+	// Add a click event listener to the Copy Link button
+	document.getElementById('copyLinkButton').addEventListener('click', function() {
+		// Replace 'your-blog-url' with the actual URL of your blog post
+		var blogUrl = pageURL;
 
-    // Execute the copy command
-    document.execCommand('copy');
+		// Create a temporary text area element
+		var textArea = document.createElement('textarea');
 
-    // Remove the text area from the document
-    document.body.removeChild(textArea);
+		// Set the value of the text area to the blog URL
+		textArea.value = blogUrl;
 
-    // Optionally, provide feedback to the user
-    alert('Blog link copied to clipboard!');
-  });
-  
+		// Append the text area to the document
+		document.body.appendChild(textArea);
+
+		// Select the text inside the text area
+		textArea.select();
+
+		// Execute the copy command
+		document.execCommand('copy');
+
+		// Remove the text area from the document
+		document.body.removeChild(textArea);
+
+		// Optionally, provide feedback to the user
+		alert('Blog link copied to clipboard!');
+	});
+
 });
 
-function listenBlog(){
-	
-	 var blogDivs = $('.descriptionDetails');
-	
-	
-	 blogDivs.each(function(index, blogDiv) {
-      // Get the text content of the div
-      var blogText = $(blogDiv).text();
+function listenBlog() {
 
-      // Create a new SpeechSynthesisUtterance object
-      var speech = new SpeechSynthesisUtterance();
+	var blogDivs = $('.descriptionDetails');
 
-      // Set the text content to be spoken
-      speech.text = blogText;
 
-      // Use a timeout to read each blog with a delay	
-      setTimeout(function() {
-        // Speak the text
-        window.speechSynthesis.speak(speech);
-      }, index * 2000); // Adjust the delay (in milliseconds) between readings
-    });
+	blogDivs.each(function(index, blogDiv) {
+		// Get the text content of the div
+		var blogText = $(blogDiv).text();
+
+		// Create a new SpeechSynthesisUtterance object
+		var speech = new SpeechSynthesisUtterance();
+
+		// Set the text content to be spoken
+		speech.text = blogText;
+
+		// Use a timeout to read each blog with a delay	
+		setTimeout(function() {
+			// Speak the text
+			window.speechSynthesis.speak(speech);
+		}, index * 2000); // Adjust the delay (in milliseconds) between readings
+	});
 }
 
-function renderBlogDetails(entity, descriptions, images){
-	if(entity != undefined && entity != null){
+function renderBlogDetails(entity, descriptions, images) {
+	if (entity != undefined && entity != null) {
 		$(`#blogTitle`).html(entity.title);
 		let date = formatDateFromMilliseconds(entity.date);
 		$(`#blogDate`).html(date);
-		if(descriptions != undefined && descriptions.length > 0){
-			for(let description of descriptions){
+		if (descriptions != undefined && descriptions.length > 0) {
+			for (let description of descriptions) {
 				//
 				$('.descriptions').append(`<h4 class="detailsTitle">${description.title}</h4>`);
+				let imgDiv = $(`<div style="text-align:center;"></div>`);
+				$('.descriptions').append(imgDiv);
 
 				let image = images.find(img => img.id == description.imageId);
 				if (image != undefined) {
-				let imageSrc = getImageURLUsingByteData(image.data)
-					let imageEle = $(`<img class="blogImge" width="100%">`);
-					imageEle.attr('src' , imageSrc);
-					
-					$('.descriptions').append(imageEle);
+					let imageSrc = getImageURLUsingByteData(image.data)
+					let imageEle = $(`<img class="blogImge" width="100%" style="width:25rem;"> `);
+
+					imageEle.attr('src', imageSrc);
+					imgDiv.append(imageEle);
 				}
-				
+
 				let descriptionDetails = $(`<div class="descriptionDetails"></div>`);
 				$('.descriptions').append(descriptionDetails);
 				let p = $(`<p>${description.description}</p>`);
@@ -174,10 +176,10 @@ function renderRecomendedBlogList(blogList, recDescList, recImgList) {
 
 
 
-				if (descList != undefined && descList.length > 0 ) {
-					
+				if (descList != undefined && descList.length > 0) {
+
 					let descriptionObj = descList[0];
-					
+
 					if (recImgList != undefined && recImgList.length > 0) {
 						let image = recImgList.find(img => img.id == descriptionObj.imageId);
 						if (image != undefined) {
@@ -212,7 +214,13 @@ function renderRecomendedBlogList(blogList, recDescList, recImgList) {
 				cardBody.append(bodyContext);
 
 				let socialBtnDiv = $(`<div class="socialBtnDiv">
-					<div class="blogBtnDiv" title="like">
+					<div class="blogBtnDiv" title="share">
+						<button class="btn btnBlog">
+							<i class="bi bi-share"></i>
+						</button>
+					</div>
+				</div>`);
+				/*<div class="blogBtnDiv" title="like">
 						<button class="btn btnBlog">
 							<i class="bi bi-hand-thumbs-up"></i>
 						</button>
@@ -222,14 +230,7 @@ function renderRecomendedBlogList(blogList, recDescList, recImgList) {
 						<button class="btn btnBlog">
 							<i class="bi bi-hand-thumbs-down"></i>
 						</button>
-					</div>
-
-					<div class="blogBtnDiv" title="share">
-						<button class="btn btnBlog">
-							<i class="bi bi-share"></i>
-						</button>
-					</div>
-				</div>`);
+					</div>*/
 				cardBody.append(socialBtnDiv);
 			}
 

@@ -1,7 +1,4 @@
-let localCache = {
-	
-	imageId : ""
-}
+let localCache = {}
 
 
 const categoryWiseSubCategory = {
@@ -70,8 +67,20 @@ function saveBlogOrNews() {
 		let descriptions = [{
 			title: descriptionTitle,
 			description: descriptionText,
-			imageId: localCache.imageId
+			imageId: localCache["uploadForm"] != undefined ? localCache["uploadForm"] : ""
 		}]
+		if(descriptionCount > 1){
+			for(let i = 1;  i < descriptionCount; i++){
+				let title = $('#descriptionTitle_'+i).val();
+				let descriptionText = tinymce.get("floatingTextarea_"+i).getContent()
+				let descrption = {
+					title: title,
+					description: descriptionText,
+					imageId: localCache["uploadForm_"+1] != undefined ? localCache["uploadForm_"+1] : ""
+				}
+				descriptions.push(descrption);
+			}
+		}
 
 		let dataObject = {
 			title: title,
@@ -114,11 +123,11 @@ function changeSubCategory(){
 }
 
 function uploadImage(formId, messageId,imagePreviewContainerId, previewImgId) {
-	var form = $('#'+formId)[0];
+	let form = $('#'+formId)[0];
 
 	// Create an FormData object 
-	var data = new FormData(form);
-	uploadImageAjax(data, messageId, imagePreviewContainerId, previewImgId);	
+	let data = new FormData(form);
+	uploadImageAjax(data, messageId, imagePreviewContainerId, previewImgId, formId);	
 }
 /*****************************Ajaxs**********************************/
 function saveBlogOrNewsAjax(dataObject) {
@@ -152,7 +161,7 @@ function clearFormData(blogId){
 }
 
 
-function uploadImageAjax(data, messageId,imagePreviewContainerId, previewImgId) {
+function uploadImageAjax(data, messageId,imagePreviewContainerId, previewImgId, formId) {
 	$.ajax({
 		url: uploadImageURL,
 		type: 'POST',
@@ -162,7 +171,7 @@ function uploadImageAjax(data, messageId,imagePreviewContainerId, previewImgId) 
 		contentType: false,
 		success: function(data) {
 			if (data.status) {
-				localCache.imageId = data.data.id;
+				localCache[formId] = data.data.id;
 				$('#'+messageId).html('File uploaded successfully!');
 				alert("Image is uploaded Successfully");
 				var byteData = data.data.data;
@@ -188,43 +197,45 @@ function uploadImageAjax(data, messageId,imagePreviewContainerId, previewImgId) 
 
 let descriptionCount = 1;
 function addExtraDescrFields(){
+	if (confirm("Are you sure want to add new description?")) {
 
-// Description Title
-	let descriptionTitleDiv = $(`<div class="form-floating mb-3"></div>`);
-	let descriptionTitleInput = $(`<input type="text" class="form-control" id="descriptionTitle_${descriptionCount}">
+		// Description Title
+		let descriptionTitleDiv = $(`<div class="form-floating mb-3" style="margin-top : 20px;"></div>`);
+		let descriptionTitleInput = $(`<input type="text" class="form-control" id="descriptionTitle_${descriptionCount}">
 									<label for="descriptionTitle_${descriptionCount}" ></label>`);
 
-	descriptionTitleDiv.append(descriptionTitleInput);
-	$('.descriptionList').append(descriptionTitleDiv);
-	
-// Description Detials
-	let descriptionDetailsDiv = $('<div class="form-floating"></div>');
-	let descriptionTextArea = $(`<div class="form-control" placeholder="Description Details" id="floatingTextarea_${descriptionCount}"></div>`);
-	descriptionDetailsDiv.append(descriptionTextArea);
-	$('.descriptionList').append(descriptionDetailsDiv)
-	
-// description Detials text Area initlization
-	initTinyTextEditor('floatingTextarea_'+descriptionCount);
-// Description Image 
+		descriptionTitleDiv.append(descriptionTitleInput);
+		$('.descriptionList').append(descriptionTitleDiv);
 
-	let mainImagediv = $('<div style="margin-top: 10px;"></div>');
-	$('.descriptionList').append(mainImagediv);
-	
-	let imgForm = $(`<form id="uploadForm_${descriptionCount}" class="formImg" enctype="multipart/form-data"></form>`);
-	mainImagediv.append(imgForm);
-	
-	let imgFormInput = $(`<input class="form-control form-control-lg" name="file" id="file_${descriptionCount}" type="file" accept="image/*" required >`);
-	imgForm.append(imgFormInput);
-	
-	let imgFormUploadBtn = $(`<button class="btn btn-info" style="margin-top: 10px;" onclick="uploadImage('uploadForm_${descriptionCount}', 'message_${descriptionCount}', 'uploadedImageContainer_${descriptionCount}', 'uploadedImage_${descriptionCount}')"><i class="bi bi-cloud-upload-fill"></i> Upload Image </button>`);
-	mainImagediv.append(imgFormUploadBtn);
-	
-	let uploadImgMessageDiv = $(`<div id="message_${descriptionCount}"></div>`);
-	mainImagediv.append(uploadImgMessageDiv);
-	
-	let imgPreviewDiv = $(`<div id="uploadedImageContainer_${descriptionCount}" style="display: none; text-align: center;"> <img id="uploadedImage_${descriptionCount}" alt="Uploaded Image"></div>`);
-	mainImagediv.append(imgPreviewDiv);
+		// Description Detials
+		let descriptionDetailsDiv = $('<div class="form-floating"></div>');
+		let descriptionTextArea = $(`<div class="form-control" placeholder="Description Details" id="floatingTextarea_${descriptionCount}"></div>`);
+		descriptionDetailsDiv.append(descriptionTextArea);
+		$('.descriptionList').append(descriptionDetailsDiv)
 
+		// description Detials text Area initlization
+		initTinyTextEditor('floatingTextarea_' + descriptionCount);
+		// Description Image 
+
+		let mainImagediv = $('<div style="margin-top: 10px;"></div>');
+		$('.descriptionList').append(mainImagediv);
+
+		let imgForm = $(`<form id="uploadForm_${descriptionCount}" class="formImg" enctype="multipart/form-data"></form>`);
+		mainImagediv.append(imgForm);
+
+		let imgFormInput = $(`<input class="form-control form-control-lg" name="file" id="file_${descriptionCount}" type="file" accept="image/*" required >`);
+		imgForm.append(imgFormInput);
+
+		let imgFormUploadBtn = $(`<button class="btn btn-info" style="margin-top: 10px;" onclick="uploadImage('uploadForm_${descriptionCount}', 'message_${descriptionCount}', 'uploadedImageContainer_${descriptionCount}', 'uploadedImage_${descriptionCount}')"><i class="bi bi-cloud-upload-fill"></i> Upload Image </button>`);
+		mainImagediv.append(imgFormUploadBtn);
+
+		let uploadImgMessageDiv = $(`<div id="message_${descriptionCount}"></div>`);
+		mainImagediv.append(uploadImgMessageDiv);
+
+		let imgPreviewDiv = $(`<div id="uploadedImageContainer_${descriptionCount}" style="display: none; text-align: center;"> <img id="uploadedImage_${descriptionCount}" alt="Uploaded Image"></div>`);
+		mainImagediv.append(imgPreviewDiv);
+		descriptionCount++;
+	}
 }
 
 function initTinyTextEditor(textAreaId){

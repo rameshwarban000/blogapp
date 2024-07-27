@@ -49,10 +49,11 @@
 
 	<bean class="org.apache.commons.dbcp2.BasicDataSource" id="dataSource">
 	    <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-	    <property name="url" value="jdbc:mysql://localhost:3306/blogify" />
+	    <property name="url" value="jdbc:mysql://localhost:3306/blogify?useUnicode=true&amp;characterEncoding=utf8&amp;characterSetResults=utf8&amp;connectionCollation=utf8mb4_unicode_ci" />
 	    <property name="username" value="root" />
 	    <property name="password" value="root" />
 	</bean>
+
 
 	<bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" id="sessionFactory">
 	    <property name="dataSource" ref="dataSource" />
@@ -75,6 +76,13 @@
     	<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
 </beans>
+
+
+
